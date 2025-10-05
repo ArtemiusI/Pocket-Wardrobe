@@ -5,7 +5,7 @@ ALWAYS
   INCLUDE ~%MOD_FOLDER%/lib/replace_multiline.tpa~
 END
 
-BEGIN ~The Amazing Pocket Wardrobe Mod: Playable Appearance Changer~
+BEGIN ~The Amazing Pocket Wardrobe Mod: Playable Appearance Changer~ DESIGNATED 0
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
     ~6000~ => ~CLERIC_MALE_HUMAN~
@@ -4987,3 +4987,1173 @@ ACTION_FOR_EACH baldurbcs IN baldur bdbaldur baldur25 BEGIN
   END
 
 END
+
+///////////////////////////////////////////////////////////////////////////
+//////////SENTRIZEAL'S ELVEN RANGER (FEMALE)
+///////////////////////////////////////////////////////////////////////////
+
+BEGIN ~NPCs use vanilla appearance, add Sentrizeal's sprite to makeover~ DESIGNATED 1
+SUBCOMPONENT ~Sentrizeal's Pack - Elven Ranger (Female)~
+REQUIRE_COMPONENT ~PocketWardrobe.tp2~ ~0~ ~The main component must be installed.~
+REQUIRE_COMPONENT ~SENTRIZEAL_AA_PACK.tp2~ ~1~ ~Sentrizeal's Elven Ranger (Female) must be installed.~
+
+ACTION_FOR_EACH CEFB2_animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+
+  COPY ~%MOD_FOLDER%/bam/CEFB2~ ~OVERRIDE~
+  COPY_EXISTING ~CEFB2%CEFB2_animations%.BAM~ ~OVERRIDE/C0151%CEFB2_animations%.BAM~
+
+  COPY_EXISTING ~CEFF2INV.BAM~ ~OVERRIDE/C0#11INV.BAM~
+
+  COPY ~Sentrizeal_AA_Pack/files/2_elfRangAv_F_v1/CEFB2%CEFB2_animations%.bam~ ~OVERRIDE/C0#11%CEFB2_animations%.BAM~
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6111~ => ~RANGER_FEMALE_ELF~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#1
+resref_paperdoll=C0#1
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6111~ => ~RANGER_FEMALE_ELF~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#1
+resref_paperdoll=CEFF
+resref_armor_base=1
+resref_armor_specific=F~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+OUTER_SPRINT sent_ranger_female ~Sentrizeal's Elven Ranger~
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/ranger_female_sentrizeal.d~
+
+BEGIN ~NPCs use Sentrizeal appearance, add vanilla sprite to makeover~ DESIGNATED 2
+SUBCOMPONENT ~Sentrizeal's Pack - Elven Ranger (Female)~
+REQUIRE_COMPONENT ~PocketWardrobe.tp2~ ~0~ ~The main component must be installed.~
+REQUIRE_COMPONENT ~SENTRIZEAL_AA_PACK.tp2~ ~1~ ~Sentrizeal's Elven Ranger (Female) must be installed.~
+
+ACTION_FOR_EACH CEFB2_animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+
+  COPY ~%MOD_FOLDER%/bam/CEFB2/CEFB2%CEFB2_animations%.BAM~ ~OVERRIDE/C0#11%CEFB2_animations%.BAM~
+
+  COPY_EXISTING ~CEFF2INV.BAM~ ~OVERRIDE/C0#11INV.BAM~
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6111~ => ~RANGER_FEMALE_ELF~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#1
+resref_paperdoll=C0#1
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6111~ => ~RANGER_FEMALE_ELF~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#1
+resref_paperdoll=C0#1
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+OUTER_SPRINT sent_ranger_female ~Vanilla Elven Ranger~
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/ranger_female_sentrizeal.d~
+
+///////////////////////////////////////////////////////////////////////////
+//////////SENTRIZEAL'S ELVEN RANGER (MALE)
+///////////////////////////////////////////////////////////////////////////
+
+BEGIN ~NPCs use vanilla appearance, add Sentrizeal's sprite to makeover~ DESIGNATED 3
+SUBCOMPONENT ~Sentrizeal's Pack - Elven Ranger (Male)~
+REQUIRE_COMPONENT ~PocketWardrobe.tp2~ ~0~ ~The main component must be installed.~
+REQUIRE_COMPONENT ~SENTRIZEAL_AA_PACK.tp2~ ~2~ ~Sentrizeal's Elven Ranger (Male) must be installed.~
+
+ACTION_FOR_EACH CEMB2_animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+
+  COPY ~%MOD_FOLDER%/bam/CEMB2~ ~OVERRIDE~
+  COPY_EXISTING ~CEMB2%CEMB2_animations%.BAM~ ~OVERRIDE/C0031%CEMB2_animations%.BAM~
+
+  COPY_EXISTING ~CEMF2INV.BAM~ ~OVERRIDE/C0#21INV.BAM~
+
+  COPY ~Sentrizeal_AA_Pack/files/3_elfRangAv_M_v1/CEMB2%CEMB2_animations%.bam~ ~OVERRIDE/C0#21%CEMB2_animations%.BAM~
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6101~ => ~RANGER_MALE_ELF~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#2
+resref_paperdoll=C0#2
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6101~ => ~RANGER_MALE_ELF~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#2
+resref_paperdoll=C0#2
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+OUTER_SPRINT sent_ranger_male ~Sentrizeal's Elven Ranger~
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/ranger_male_sentrizeal.d~
+
+BEGIN ~NPCs use Sentrizeal appearance, add vanilla sprite to makeover~ DESIGNATED 4
+SUBCOMPONENT ~Sentrizeal's Pack - Elven Ranger (Male)~
+REQUIRE_COMPONENT ~PocketWardrobe.tp2~ ~0~ ~The main component must be installed.~
+REQUIRE_COMPONENT ~SENTRIZEAL_AA_PACK.tp2~ ~2~ ~Sentrizeal's Elven Ranger (Male) must be installed.~
+
+ACTION_FOR_EACH CEMB2_animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+
+  COPY ~%MOD_FOLDER%/bam/CEMB2/CEMB2%CEMB2_animations%.bam~ ~OVERRIDE/C0#21%CEMB2_animations%.BAM~
+
+  COPY_EXISTING ~CEMF2INV.BAM~ ~OVERRIDE/C0#21INV.BAM~
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6101~ => ~RANGER_MALE_ELF~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#2
+resref_paperdoll=C0#2
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6101~ => ~RANGER_MALE_ELF~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#2
+resref_paperdoll=C0#2
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+OUTER_SPRINT sent_ranger_male ~Sentrizeal's Elven Ranger~
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/ranger_male_sentrizeal.d~
+
+///////////////////////////////////////////////////////////////////////////
+//////////Sentrizeal's Human Gladiator (FEMALE)
+///////////////////////////////////////////////////////////////////////////
+
+BEGIN ~NPCs use vanilla appearance, add Sentrizeal's sprite to makeover~ DESIGNATED 5
+SUBCOMPONENT ~Sentrizeal's Pack - Human Gladiator (Female)~
+REQUIRE_COMPONENT ~PocketWardrobe.tp2~ ~0~ ~The main component must be installed.~
+REQUIRE_COMPONENT ~SENTRIZEAL_AA_PACK.tp2~ ~4~ ~Sentrizeal's Human Gladiator (Female) must be installed.~
+
+ACTION_FOR_EACH CHFB2_animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+
+  COPY ~%MOD_FOLDER%/bam/CHFB2~ ~OVERRIDE~
+  COPY_EXISTING ~CHFB2%CHFB2_animations%.BAM~ ~OVERRIDE/C0131%CHFB2_animations%.BAM~
+
+  COPY_EXISTING ~CHFF2INV.BAM~ ~OVERRIDE/C0#31INV.BAM~
+
+  COPY ~Sentrizeal_AA_Pack/files/5_humGladAv_F/CHFB2%CHFB2_animations%.bam~ ~OVERRIDE/C0#31%CHFB2_animations%.BAM~
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6110~ => ~GLADIATOR_FEMALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#3
+resref_paperdoll=C0#3
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6110~ => ~GLADIATOR_FEMALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#3
+resref_paperdoll=C0#3
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+OUTER_SPRINT sent_gladiator_female ~Sentrizeal's Human Gladiator~
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/gladiator_female_sentrizeal.d~
+
+BEGIN ~NPCs use Sentrizeal appearance, add vanilla sprite to makeover~ DESIGNATED 6
+SUBCOMPONENT ~Sentrizeal's Pack - Human Gladiator (Female)~
+REQUIRE_COMPONENT ~PocketWardrobe.tp2~ ~0~ ~The main component must be installed.~
+REQUIRE_COMPONENT ~SENTRIZEAL_AA_PACK.tp2~ ~4~ ~Sentrizeal's Human Gladiator (Female) must be installed.~
+
+ACTION_FOR_EACH CHFB2_animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+
+  COPY ~%MOD_FOLDER%/bam/CHFB2/CHFB2%CHFB2_animations%.bam~ ~OVERRIDE/C0#31%CHFB2_animations%.BAM~
+
+  COPY_EXISTING ~CHFF2INV.BAM~ ~OVERRIDE/C0#31INV.BAM~
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6110~ => ~GLADIATOR_FEMALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#3
+resref_paperdoll=C0#3
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6110~ => ~GLADIATOR_FEMALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#3
+resref_paperdoll=C0#3
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+OUTER_SPRINT sent_gladiator_female ~Sentrizeal's Human Gladiator~
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/gladiator_female_sentrizeal.d~
+
+///////////////////////////////////////////////////////////////////////////
+//////////Sentrizeal's Human Gladiator (MALE)
+///////////////////////////////////////////////////////////////////////////
+
+BEGIN ~NPCs use vanilla appearance, add Sentrizeal's sprite to makeover~ DESIGNATED 7
+SUBCOMPONENT ~Sentrizeal's Pack - Human Gladiator (Male)~
+REQUIRE_COMPONENT ~PocketWardrobe.tp2~ ~0~ ~The main component must be installed.~
+REQUIRE_COMPONENT ~SENTRIZEAL_AA_PACK.tp2~ ~5~ ~Sentrizeal's Human Gladiator (Male) must be installed.~
+
+ACTION_FOR_EACH CHMB2_animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+
+  COPY ~%MOD_FOLDER%/bam/CHMB2~ ~OVERRIDE~
+  COPY_EXISTING ~CHMB2%CHMB2_animations%.BAM~ ~OVERRIDE/C0011%CHMB2_animations%.BAM~
+
+  COPY_EXISTING ~CHMF2INV.BAM~ ~OVERRIDE/C0#41INV.BAM~
+
+  COPY ~Sentrizeal_AA_Pack/files/6_humGladAv_M/CHMB2%CHMB2_animations%.bam~ ~OVERRIDE/C0#41%CHMB2_animations%.BAM~
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6100~ => ~GLADIATOR_MALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#4
+resref_paperdoll=C0#4
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6100~ => ~GLADIATOR_MALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#4
+resref_paperdoll=C0#4
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+OUTER_SPRINT sent_gladiator_male ~Sentrizeal's Human Gladiator~
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/gladiator_male_sentrizeal.d~
+
+BEGIN ~NPCs use Sentrizeal appearance, add vanilla sprite to makeover~ DESIGNATED 8
+SUBCOMPONENT ~Sentrizeal's Pack - Human Gladiator (Male)~
+REQUIRE_COMPONENT ~PocketWardrobe.tp2~ ~0~ ~The main component must be installed.~
+REQUIRE_COMPONENT ~SENTRIZEAL_AA_PACK.tp2~ ~5~ ~Sentrizeal's Human Gladiator (Male) must be installed.~
+
+ACTION_FOR_EACH CHMB2_animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+
+  COPY ~%MOD_FOLDER%/bam/CHMB2/CHMB2%CHMB2_animations%.bam~ ~OVERRIDE/C0#41%CHMB2_animations%.BAM~
+
+  COPY_EXISTING ~CHMF2INV.BAM~ ~OVERRIDE/C0#41INV.BAM~
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6100~ => ~GLADIATOR_MALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#4
+resref_paperdoll=C0#4
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6100~ => ~GLADIATOR_MALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#4
+resref_paperdoll=C0#4
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+OUTER_SPRINT sent_gladiator_male ~Sentrizeal's Human Gladiator~
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/gladiator_male_sentrizeal.d~
+
+///////////////////////////////////////////////////////////////////////////
+//////////Sentrizeal's Human Mercenary (FEMALE)
+///////////////////////////////////////////////////////////////////////////
+
+BEGIN ~NPCs use vanilla appearance, add Sentrizeal's sprite to makeover~ DESIGNATED 9
+SUBCOMPONENT ~Sentrizeal's Pack - Human Mercenary (Female)~
+REQUIRE_COMPONENT ~PocketWardrobe.tp2~ ~0~ ~The main component must be installed.~
+REQUIRE_COMPONENT ~SENTRIZEAL_AA_PACK.tp2~ ~6~ ~Sentrizeal's Human Mercenary (Female) must be installed.~
+
+ACTION_FOR_EACH CHFB3_animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+
+  COPY ~%MOD_FOLDER%/bam/CHFB3~ ~OVERRIDE~
+  COPY_EXISTING ~CHFB3%CHFB3_animations%.BAM~ ~OVERRIDE/C0511%CHFB3_animations%.BAM~
+
+  COPY_EXISTING ~CHFF3INV.BAM~ ~OVERRIDE/C0#51INV.BAM~
+
+  COPY ~Sentrizeal_AA_Pack/files/7_humMercAv_F/CHFB3%CHFB3_animations%.bam~ ~OVERRIDE/C0#51%CHFB3_animations%.BAM~
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6110~ => ~MERCENARY_FEMALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#5
+resref_paperdoll=C0#5
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6110~ => ~MERCENARY_FEMALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#5
+resref_paperdoll=C0#5
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+OUTER_SPRINT sent_mercenary_female ~Sentrizeal's Human Mercenary~
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/mercenary_female_sentrizeal.d~
+
+BEGIN ~NPCs use Sentrizeal appearance, add vanilla sprite to makeover~ DESIGNATED 10
+SUBCOMPONENT ~Sentrizeal's Pack - Human Mercenary (Female)~
+REQUIRE_COMPONENT ~PocketWardrobe.tp2~ ~0~ ~The main component must be installed.~
+REQUIRE_COMPONENT ~SENTRIZEAL_AA_PACK.tp2~ ~6~ ~Sentrizeal's Human Mercenary (Female) must be installed.~
+
+ACTION_FOR_EACH CHFB3_animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+
+  COPY ~%MOD_FOLDER%/bam/CHFB3/CHFB3%CHFB3_animations%.bam~ ~OVERRIDE/C0#51%CHFB3_animations%.BAM~
+
+  COPY_EXISTING ~CHFF3INV.BAM~ ~OVERRIDE/C0#51INV.BAM~
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6110~ => ~MERCENARY_FEMALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#5
+resref_paperdoll=C0#5
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6110~ => ~MERCENARY_FEMALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#5
+resref_paperdoll=C0#5
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+OUTER_SPRINT sent_mercenary_female ~Sentrizeal's Human Mercenary~
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/mercenary_female_sentrizeal.d~
+
+///////////////////////////////////////////////////////////////////////////
+//////////Sentrizeal's Human Mercenary (MALE)
+///////////////////////////////////////////////////////////////////////////
+
+BEGIN ~NPCs use vanilla appearance, add Sentrizeal's sprite to makeover~ DESIGNATED 11
+SUBCOMPONENT ~Sentrizeal's Pack - Human Mercenary (Male)~
+REQUIRE_COMPONENT ~PocketWardrobe.tp2~ ~0~ ~The main component must be installed.~
+REQUIRE_COMPONENT ~SENTRIZEAL_AA_PACK.tp2~ ~7~ ~Sentrizeal's Human Mercenary (Male) must be installed.~
+
+ACTION_FOR_EACH CHMB3_animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+
+  COPY ~%MOD_FOLDER%/bam/CHMB3~ ~OVERRIDE~
+  COPY_EXISTING ~CHMB3%CHMB3_animations%.BAM~ ~OVERRIDE/C0391%CHMB3_animations%.BAM~
+
+  COPY_EXISTING ~CHMF3INV.BAM~ ~OVERRIDE/C0#61INV.BAM~
+
+  COPY ~Sentrizeal_AA_Pack/files/8_humMercAv_M/CHMB3%CHMB3_animations%.bam~ ~OVERRIDE/C0#61%CHMB3_animations%.BAM~
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6100~ => ~MERCENARY_MALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#6
+resref_paperdoll=C0#6
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6100~ => ~MERCENARY_MALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#6
+resref_paperdoll=C0#6
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+OUTER_SPRINT sent_mercenary_male ~Sentrizeal's Human Mercenary~
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/mercenary_male_sentrizeal.d~
+
+BEGIN ~NPCs use Sentrizeal appearance, add vanilla sprite to makeover~ DESIGNATED 12
+SUBCOMPONENT ~Sentrizeal's Pack - Human Mercenary (Male)~
+REQUIRE_COMPONENT ~PocketWardrobe.tp2~ ~0~ ~The main component must be installed.~
+REQUIRE_COMPONENT ~SENTRIZEAL_AA_PACK.tp2~ ~7~ ~Sentrizeal's Human Mercenary (Male) must be installed.~
+
+ACTION_FOR_EACH CHMB3_animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+
+  COPY ~%MOD_FOLDER%/bam/CHMB3/CHMB3%CHMB3_animations%.bam~ ~OVERRIDE/C0#61%CHMB3_animations%.BAM~
+
+  COPY_EXISTING ~CHMF3INV.BAM~ ~OVERRIDE/C0#61INV.BAM~
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6100~ => ~MERCENARY_MALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#6
+resref_paperdoll=C0#6
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6100~ => ~MERCENARY_MALE_HUMAN~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C0#6
+resref_paperdoll=C0#6
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+OUTER_SPRINT sent_mercenary_male ~Sentrizeal's Human Mercenary~
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/mercenary_male_sentrizeal.d~
