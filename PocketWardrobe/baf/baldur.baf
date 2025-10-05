@@ -1,0 +1,9 @@
+IF
+  !PartyHasItem("C0WARDRO")
+  Global("C0_Pocket_Wardrobe","GLOBAL",0)
+THEN
+RESPONSE #100
+  SetGlobal("C0_Pocket_Wardrobe","GLOBAL",1)
+  GiveItemCreate("C0WARDRO",Player1,1,0,0)
+  Continue()
+END

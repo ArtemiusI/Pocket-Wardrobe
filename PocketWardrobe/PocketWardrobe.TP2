@@ -1,0 +1,5416 @@
+BACKUP ~weidu_external/backup/PocketWardrobe~
+AUTHOR ~The Artisan~
+ALWAYS
+  INCLUDE ~%MOD_FOLDER%/lib/functions.tph~
+  INCLUDE ~%MOD_FOLDER%/lib/replace_multiline.tpa~
+END
+
+BEGIN ~The Amazing Pocket Wardrobe Mod: Playable Appearance Changer~
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor BEGIN
+    ~6000~ => ~CLERIC_MALE_HUMAN~
+    ~6001~ => ~CLERIC_MALE_ELF~
+    ~6002~ => ~CLERIC_MALE_DWARF~
+    ~6003~ => ~CLERIC_MALE_HALFLING~
+    ~6004~ => ~CLERIC_MALE_GNOME~
+    ~6005~ => ~CLERIC_MALE_HALFORC~
+    ~6010~ => ~CLERIC_FEMALE_HUMAN~
+    ~6011~ => ~CLERIC_FEMALE_ELF~
+    ~6012~ => ~CLERIC_FEMALE_DWARF~
+    ~6013~ => ~CLERIC_FEMALE_HALFLING~
+    ~6014~ => ~CLERIC_FEMALE_GNOME~
+    ~6015~ => ~CLERIC_FEMALE_HALFORC~
+
+    ~6100~ => ~FIGHTER_MALE_HUMAN~
+    ~6101~ => ~FIGHTER_MALE_ELF~
+    ~6102~ => ~FIGHTER_MALE_DWARF~
+    ~6103~ => ~FIGHTER_MALE_HALFLING~
+    ~6104~ => ~FIGHTER_MALE_GNOME~
+    ~6105~ => ~FIGHTER_MALE_HALFORC~
+    ~6110~ => ~FIGHTER_FEMALE_HUMAN~
+    ~6111~ => ~FIGHTER_FEMALE_ELF~
+    ~6112~ => ~FIGHTER_FEMALE_DWARF~
+    ~6113~ => ~FIGHTER_FEMALE_HALFLING~
+    ~6114~ => ~FIGHTER_FEMALE_GNOME~
+    ~6115~ => ~FIGHTER_FEMALE_HALFORC~
+    
+    ~6200~ => ~MAGE_MALE_HUMAN~
+    ~6201~ => ~MAGE_MALE_ELF~
+    ~6202~ => ~MAGE_MALE_DWARF~
+    ~6204~ => ~MAGE_MALE_GNOME~
+    ~6205~ => ~MAGE_MALE_HALFORC~
+    ~6210~ => ~MAGE_FEMALE_HUMAN~
+    ~6211~ => ~MAGE_FEMALE_ELF~
+    ~6212~ => ~MAGE_FEMALE_DWARF~
+    ~6214~ => ~MAGE_FEMALE_GNOME~
+    ~6215~ => ~MAGE_FEMALE_HALFORC~
+
+    ~6300~ => ~THIEF_MALE_HUMAN~
+    ~6301~ => ~THIEF_MALE_ELF~
+    ~6302~ => ~THIEF_MALE_DWARF~
+    ~6303~ => ~THIEF_MALE_HALFLING~
+    ~6304~ => ~THIEF_MALE_GNOME~
+    ~6305~ => ~THIEF_MALE_HALFORC~
+    ~6310~ => ~THIEF_FEMALE_HUMAN~
+    ~6311~ => ~THIEF_FEMALE_ELF~
+    ~6312~ => ~THIEF_FEMALE_DWARF~
+    ~6313~ => ~THIEF_FEMALE_HALFLING~
+    ~6314~ => ~THIEF_FEMALE_GNOME~
+    ~6315~ => ~THIEF_FEMALE_HALFORC~
+  END
+  ACTION_PHP_EACH anims_armor AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_1 BEGIN
+    ~6000~ => ~CLERIC_MALE_HUMAN_1~
+    ~6001~ => ~CLERIC_MALE_ELF_1~
+    ~6002~ => ~CLERIC_MALE_DWARF_1~
+    ~6003~ => ~CLERIC_MALE_HALFLING_1~
+    ~6004~ => ~CLERIC_MALE_GNOME_1~
+    ~6005~ => ~CLERIC_MALE_HALFORC_1~
+    ~6010~ => ~CLERIC_FEMALE_HUMAN_1~
+    ~6011~ => ~CLERIC_FEMALE_ELF_1~
+    ~6012~ => ~CLERIC_FEMALE_DWARF_1~
+    ~6013~ => ~CLERIC_FEMALE_HALFLING_1~
+    ~6014~ => ~CLERIC_FEMALE_GNOME_1~
+    ~6015~ => ~CLERIC_FEMALE_HALFORC_1~
+
+    ~6100~ => ~FIGHTER_MALE_HUMAN_1~
+    ~6101~ => ~FIGHTER_MALE_ELF_1~
+    ~6102~ => ~FIGHTER_MALE_DWARF_1~
+    ~6103~ => ~FIGHTER_MALE_HALFLING_1~
+    ~6104~ => ~FIGHTER_MALE_GNOME_1~
+    ~6105~ => ~FIGHTER_MALE_HALFORC_1~
+    ~6110~ => ~FIGHTER_FEMALE_HUMAN_1~
+    ~6111~ => ~FIGHTER_FEMALE_ELF_1~
+    ~6112~ => ~FIGHTER_FEMALE_DWARF_1~
+    ~6113~ => ~FIGHTER_FEMALE_HALFLING_1~
+    ~6114~ => ~FIGHTER_FEMALE_GNOME_1~
+    ~6115~ => ~FIGHTER_FEMALE_HALFORC_1~
+    
+    ~6200~ => ~MAGE_MALE_HUMAN_1~
+    ~6201~ => ~MAGE_MALE_ELF_1~
+    ~6202~ => ~MAGE_MALE_DWARF_1~
+    ~6204~ => ~MAGE_MALE_GNOME_1~
+    ~6205~ => ~MAGE_MALE_HALFORC_1~
+    ~6210~ => ~MAGE_FEMALE_HUMAN_1~
+    ~6211~ => ~MAGE_FEMALE_ELF_1~
+    ~6212~ => ~MAGE_FEMALE_DWARF_1~
+    ~6214~ => ~MAGE_FEMALE_GNOME_1~
+    ~6215~ => ~MAGE_FEMALE_HALFORC_1~
+
+    ~6300~ => ~THIEF_MALE_HUMAN_1~
+    ~6301~ => ~THIEF_MALE_ELF_1~
+    ~6302~ => ~THIEF_MALE_DWARF_1~
+    ~6303~ => ~THIEF_MALE_HALFLING_1~
+    ~6304~ => ~THIEF_MALE_GNOME_1~
+    ~6305~ => ~THIEF_MALE_HALFORC_1~
+    ~6310~ => ~THIEF_FEMALE_HUMAN_1~
+    ~6311~ => ~THIEF_FEMALE_ELF_1~
+    ~6312~ => ~THIEF_FEMALE_DWARF_1~
+    ~6313~ => ~THIEF_FEMALE_HALFLING_1~
+    ~6314~ => ~THIEF_FEMALE_GNOME_1~
+    ~6315~ => ~THIEF_FEMALE_HALFORC_1~
+  END
+  ACTION_PHP_EACH anims_armor_1 AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_1 BEGIN
+    ~6000~ => ~CLERIC_MALE_HUMAN_1~
+    ~6001~ => ~CLERIC_MALE_ELF_1~
+    ~6002~ => ~CLERIC_MALE_DWARF_1~
+    ~6003~ => ~CLERIC_MALE_HALFLING_1~
+    ~6004~ => ~CLERIC_MALE_GNOME_1~
+    ~6005~ => ~CLERIC_MALE_HALFORC_1~
+    ~6010~ => ~CLERIC_FEMALE_HUMAN_1~
+    ~6011~ => ~CLERIC_FEMALE_ELF_1~
+    ~6012~ => ~CLERIC_FEMALE_DWARF_1~
+    ~6013~ => ~CLERIC_FEMALE_HALFLING_1~
+    ~6014~ => ~CLERIC_FEMALE_GNOME_1~
+    ~6015~ => ~CLERIC_FEMALE_HALFORC_1~
+
+    ~6100~ => ~FIGHTER_MALE_HUMAN_1~
+    ~6101~ => ~FIGHTER_MALE_ELF_1~
+    ~6102~ => ~FIGHTER_MALE_DWARF_1~
+    ~6103~ => ~FIGHTER_MALE_HALFLING_1~
+    ~6104~ => ~FIGHTER_MALE_GNOME_1~
+    ~6105~ => ~FIGHTER_MALE_HALFORC_1~
+    ~6110~ => ~FIGHTER_FEMALE_HUMAN_1~
+    ~6111~ => ~FIGHTER_FEMALE_ELF_1~
+    ~6112~ => ~FIGHTER_FEMALE_DWARF_1~
+    ~6113~ => ~FIGHTER_FEMALE_HALFLING_1~
+    ~6114~ => ~FIGHTER_FEMALE_GNOME_1~
+    ~6115~ => ~FIGHTER_FEMALE_HALFORC_1~
+    
+    ~6200~ => ~MAGE_MALE_HUMAN_1~
+    ~6201~ => ~MAGE_MALE_ELF_1~
+    ~6202~ => ~MAGE_MALE_DWARF_1~
+    ~6204~ => ~MAGE_MALE_GNOME_1~
+    ~6205~ => ~MAGE_MALE_HALFORC_1~
+    ~6210~ => ~MAGE_FEMALE_HUMAN_1~
+    ~6211~ => ~MAGE_FEMALE_ELF_1~
+    ~6212~ => ~MAGE_FEMALE_DWARF_1~
+    ~6214~ => ~MAGE_FEMALE_GNOME_1~
+    ~6215~ => ~MAGE_FEMALE_HALFORC_1~
+
+  END
+  ACTION_PHP_EACH anims_armor_1 AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~~~~~~ //"
+  END
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+ACTION_FOR_EACH animations IN A1 A2 A3 A4 A5 A6 A7 A8 A9 CA G1 G11 G12 G13 G14 G15 G16 G17 G18 G19 SA SS SX BEGIN
+  COPY_EXISTING ~CHMB2%animations%.BAM~ ~OVERRIDE/C0011%animations%.BAM~
+  COPY_EXISTING ~CEMB2%animations%.BAM~ ~OVERRIDE/C0031%animations%.BAM~
+  COPY_EXISTING ~CDMB2%animations%.BAM~ ~OVERRIDE/C0051%animations%.BAM~
+  COPY_EXISTING ~CIMB2%animations%.BAM~ ~OVERRIDE/C0071%animations%.BAM~
+
+  COPY_EXISTING ~CHFB2%animations%.BAM~ ~OVERRIDE/C0131%animations%.BAM~
+  COPY_EXISTING ~CEFB2%animations%.BAM~ ~OVERRIDE/C0151%animations%.BAM~
+  COPY_EXISTING ~CDFB2%animations%.BAM~ ~OVERRIDE/C0171%animations%.BAM~
+  COPY_EXISTING ~CIFB2%animations%.BAM~ ~OVERRIDE/C0191%animations%.BAM~
+
+  COPY_EXISTING ~CHMW2%animations%.BAM~ ~OVERRIDE/C0251%animations%.BAM~
+  COPY_EXISTING ~CEMW2%animations%.BAM~ ~OVERRIDE/C0261%animations%.BAM~
+  COPY_EXISTING ~CDMW2%animations%.BAM~ ~OVERRIDE/C0271%animations%.BAM~
+
+  COPY_EXISTING ~CHFW2%animations%.BAM~ ~OVERRIDE/C0281%animations%.BAM~
+  COPY_EXISTING ~CEFW2%animations%.BAM~ ~OVERRIDE/C0291%animations%.BAM~
+  COPY_EXISTING ~CDFW2%animations%.BAM~ ~OVERRIDE/C0301%animations%.BAM~
+
+  COPY_EXISTING ~CHMT2%animations%.BAM~ ~OVERRIDE/C0311%animations%.BAM~
+  COPY_EXISTING ~CEMT2%animations%.BAM~ ~OVERRIDE/C0321%animations%.BAM~
+  COPY_EXISTING ~CDMT2%animations%.BAM~ ~OVERRIDE/C0331%animations%.BAM~
+  COPY_EXISTING ~CIMT2%animations%.BAM~ ~OVERRIDE/C0341%animations%.BAM~
+
+  COPY_EXISTING ~CHFT2%animations%.BAM~ ~OVERRIDE/C0351%animations%.BAM~
+  COPY_EXISTING ~CEFT2%animations%.BAM~ ~OVERRIDE/C0361%animations%.BAM~
+  COPY_EXISTING ~CDFT2%animations%.BAM~ ~OVERRIDE/C0371%animations%.BAM~
+  COPY_EXISTING ~CIFT2%animations%.BAM~ ~OVERRIDE/C0381%animations%.BAM~
+
+  COPY_EXISTING ~CHMB3%animations%.BAM~ ~OVERRIDE/C0391%animations%.BAM~
+  COPY_EXISTING ~CEMB3%animations%.BAM~ ~OVERRIDE/C0411%animations%.BAM~
+  COPY_EXISTING ~CDMB3%animations%.BAM~ ~OVERRIDE/C0431%animations%.BAM~
+  COPY_EXISTING ~CIMB3%animations%.BAM~ ~OVERRIDE/C0451%animations%.BAM~
+
+  COPY_EXISTING ~CHFB3%animations%.BAM~ ~OVERRIDE/C0511%animations%.BAM~
+  COPY_EXISTING ~CEFB3%animations%.BAM~ ~OVERRIDE/C0531%animations%.BAM~
+  COPY_EXISTING ~CDFB3%animations%.BAM~ ~OVERRIDE/C0551%animations%.BAM~
+  COPY_EXISTING ~CIFB3%animations%.BAM~ ~OVERRIDE/C0571%animations%.BAM~
+
+  COPY_EXISTING ~CHMW3%animations%.BAM~ ~OVERRIDE/C0631%animations%.BAM~
+  COPY_EXISTING ~CEMW3%animations%.BAM~ ~OVERRIDE/C0641%animations%.BAM~
+  COPY_EXISTING ~CDMW3%animations%.BAM~ ~OVERRIDE/C0651%animations%.BAM~
+
+  COPY_EXISTING ~CHFW3%animations%.BAM~ ~OVERRIDE/C0661%animations%.BAM~
+  COPY_EXISTING ~CEFW3%animations%.BAM~ ~OVERRIDE/C0671%animations%.BAM~
+  COPY_EXISTING ~CDFW3%animations%.BAM~ ~OVERRIDE/C0681%animations%.BAM~
+
+  COPY_EXISTING ~CHMT3%animations%.BAM~ ~OVERRIDE/C0691%animations%.BAM~
+  COPY_EXISTING ~CEMT3%animations%.BAM~ ~OVERRIDE/C0701%animations%.BAM~
+  COPY_EXISTING ~CDMT3%animations%.BAM~ ~OVERRIDE/C0711%animations%.BAM~
+  COPY_EXISTING ~CIMT3%animations%.BAM~ ~OVERRIDE/C0721%animations%.BAM~
+
+  COPY_EXISTING ~CHFT3%animations%.BAM~ ~OVERRIDE/C0731%animations%.BAM~
+  COPY_EXISTING ~CEFT3%animations%.BAM~ ~OVERRIDE/C0741%animations%.BAM~
+  COPY_EXISTING ~CDFT3%animations%.BAM~ ~OVERRIDE/C0751%animations%.BAM~
+  COPY_EXISTING ~CIFT3%animations%.BAM~ ~OVERRIDE/C0761%animations%.BAM~
+
+  COPY_EXISTING ~CHMF4%animations%.BAM~ ~OVERRIDE/C0771%animations%.BAM~
+  COPY_EXISTING ~CEMF4%animations%.BAM~ ~OVERRIDE/C0791%animations%.BAM~
+  COPY_EXISTING ~CDMF4%animations%.BAM~ ~OVERRIDE/C0811%animations%.BAM~
+  COPY_EXISTING ~CIMF4%animations%.BAM~ ~OVERRIDE/C0831%animations%.BAM~
+
+  COPY_EXISTING ~CHMC4%animations%.BAM~ ~OVERRIDE/C0781%animations%.BAM~
+  COPY_EXISTING ~CEMC4%animations%.BAM~ ~OVERRIDE/C0801%animations%.BAM~
+  COPY_EXISTING ~CDMC4%animations%.BAM~ ~OVERRIDE/C0821%animations%.BAM~
+  COPY_EXISTING ~CIMC4%animations%.BAM~ ~OVERRIDE/C0841%animations%.BAM~
+
+  COPY_EXISTING ~CHFF4%animations%.BAM~ ~OVERRIDE/C0891%animations%.BAM~
+  COPY_EXISTING ~CEFF4%animations%.BAM~ ~OVERRIDE/C0911%animations%.BAM~
+  COPY_EXISTING ~CDFF4%animations%.BAM~ ~OVERRIDE/C0931%animations%.BAM~
+  COPY_EXISTING ~CIFF4%animations%.BAM~ ~OVERRIDE/C0951%animations%.BAM~
+
+  COPY_EXISTING ~CHFC4%animations%.BAM~ ~OVERRIDE/C0901%animations%.BAM~
+  COPY_EXISTING ~CEFC4%animations%.BAM~ ~OVERRIDE/C0921%animations%.BAM~
+  COPY_EXISTING ~CDFC4%animations%.BAM~ ~OVERRIDE/C0941%animations%.BAM~
+  COPY_EXISTING ~CIFC4%animations%.BAM~ ~OVERRIDE/C0961%animations%.BAM~
+
+  COPY_EXISTING ~CHMW4%animations%.BAM~ ~OVERRIDE/C0_21%animations%.BAM~
+  COPY_EXISTING ~CEMW4%animations%.BAM~ ~OVERRIDE/C0_31%animations%.BAM~
+  COPY_EXISTING ~CDMW4%animations%.BAM~ ~OVERRIDE/C0_41%animations%.BAM~
+
+  COPY_EXISTING ~CHFW4%animations%.BAM~ ~OVERRIDE/C0_51%animations%.BAM~
+  COPY_EXISTING ~CEFW4%animations%.BAM~ ~OVERRIDE/C0_61%animations%.BAM~
+  COPY_EXISTING ~CDFW4%animations%.BAM~ ~OVERRIDE/C0_71%animations%.BAM~
+
+  COPY_EXISTING ~CHMT4%animations%.BAM~ ~OVERRIDE/C0_81%animations%.BAM~
+  COPY_EXISTING ~CEMT4%animations%.BAM~ ~OVERRIDE/C0_91%animations%.BAM~
+  COPY_EXISTING ~CDMT4%animations%.BAM~ ~OVERRIDE/C0_01%animations%.BAM~
+  COPY_EXISTING ~CIMT4%animations%.BAM~ ~OVERRIDE/C0_a1%animations%.BAM~
+
+  COPY_EXISTING ~CHFT4%animations%.BAM~ ~OVERRIDE/C0_b1%animations%.BAM~
+  COPY_EXISTING ~CEFT4%animations%.BAM~ ~OVERRIDE/C0_c1%animations%.BAM~
+  COPY_EXISTING ~CDFT4%animations%.BAM~ ~OVERRIDE/C0_d1%animations%.BAM~
+  COPY_EXISTING ~CIFT4%animations%.BAM~ ~OVERRIDE/C0_e1%animations%.BAM~
+
+  END
+
+COPY_EXISTING ~CHMF2INV.BAM~ ~OVERRIDE/C0011INV.BAM~
+COPY_EXISTING ~CHMC2INV.BAM~ ~OVERRIDE/C0021INV.BAM~
+COPY_EXISTING ~CEMF2INV.BAM~ ~OVERRIDE/C0031INV.BAM~
+COPY_EXISTING ~CEMC2INV.BAM~ ~OVERRIDE/C0041INV.BAM~
+COPY_EXISTING ~CDMF2INV.BAM~ ~OVERRIDE/C0051INV.BAM~
+COPY_EXISTING ~CDMC2INV.BAM~ ~OVERRIDE/C0061INV.BAM~
+COPY_EXISTING ~CIMF2INV.BAM~ ~OVERRIDE/C0071INV.BAM~
+COPY_EXISTING ~CIMC2INV.BAM~ ~OVERRIDE/C0081INV.BAM~
+COPY_EXISTING ~CGMF2INV.BAM~ ~OVERRIDE/C0091INV.BAM~
+COPY_EXISTING ~CGMC2INV.BAM~ ~OVERRIDE/C0101INV.BAM~
+COPY_EXISTING ~COMF2INV.BAM~ ~OVERRIDE/C0111INV.BAM~
+COPY_EXISTING ~COMC2INV.BAM~ ~OVERRIDE/C0121INV.BAM~
+
+COPY_EXISTING ~CHFF2INV.BAM~ ~OVERRIDE/C0131INV.BAM~
+COPY_EXISTING ~CHFC2INV.BAM~ ~OVERRIDE/C0141INV.BAM~
+COPY_EXISTING ~CEFF2INV.BAM~ ~OVERRIDE/C0151INV.BAM~
+COPY_EXISTING ~CEFC2INV.BAM~ ~OVERRIDE/C0161INV.BAM~
+COPY_EXISTING ~CDFF2INV.BAM~ ~OVERRIDE/C0171INV.BAM~
+COPY_EXISTING ~CDFC2INV.BAM~ ~OVERRIDE/C0181INV.BAM~
+COPY_EXISTING ~CIFF2INV.BAM~ ~OVERRIDE/C0191INV.BAM~
+COPY_EXISTING ~CIFC2INV.BAM~ ~OVERRIDE/C0201INV.BAM~
+COPY_EXISTING ~CGFF2INV.BAM~ ~OVERRIDE/C0211INV.BAM~
+COPY_EXISTING ~CGFC2INV.BAM~ ~OVERRIDE/C0221INV.BAM~
+COPY_EXISTING ~COFF2INV.BAM~ ~OVERRIDE/C0231INV.BAM~
+COPY_EXISTING ~COFC2INV.BAM~ ~OVERRIDE/C0241INV.BAM~
+
+COPY_EXISTING ~CHMW2INV.BAM~ ~OVERRIDE/C0251INV.BAM~
+COPY_EXISTING ~CEMW2INV.BAM~ ~OVERRIDE/C0261INV.BAM~
+COPY_EXISTING ~CDMW2INV.BAM~ ~OVERRIDE/C0271INV.BAM~
+COPY_EXISTING ~CHFW2INV.BAM~ ~OVERRIDE/C0281INV.BAM~
+COPY_EXISTING ~CEFW2INV.BAM~ ~OVERRIDE/C0291INV.BAM~
+COPY_EXISTING ~CDFW2INV.BAM~ ~OVERRIDE/C0301INV.BAM~
+COPY_EXISTING ~CHMT2INV.BAM~ ~OVERRIDE/C0311INV.BAM~
+COPY_EXISTING ~CEMT2INV.BAM~ ~OVERRIDE/C0321INV.BAM~
+COPY_EXISTING ~CDMT2INV.BAM~ ~OVERRIDE/C0331INV.BAM~
+COPY_EXISTING ~CIMT2INV.BAM~ ~OVERRIDE/C0341INV.BAM~
+COPY_EXISTING ~CHFT2INV.BAM~ ~OVERRIDE/C0351INV.BAM~
+COPY_EXISTING ~CEFT2INV.BAM~ ~OVERRIDE/C0361INV.BAM~
+COPY_EXISTING ~CDFT2INV.BAM~ ~OVERRIDE/C0371INV.BAM~
+COPY_EXISTING ~CIFT2INV.BAM~ ~OVERRIDE/C0381INV.BAM~
+
+COPY_EXISTING ~CHMF3INV.BAM~ ~OVERRIDE/C0391INV.BAM~
+COPY_EXISTING ~CHMC3INV.BAM~ ~OVERRIDE/C0401INV.BAM~
+COPY_EXISTING ~CEMF3INV.BAM~ ~OVERRIDE/C0411INV.BAM~
+COPY_EXISTING ~CEMC3INV.BAM~ ~OVERRIDE/C0421INV.BAM~
+COPY_EXISTING ~CDMF3INV.BAM~ ~OVERRIDE/C0431INV.BAM~
+COPY_EXISTING ~CDMC3INV.BAM~ ~OVERRIDE/C0441INV.BAM~
+COPY_EXISTING ~CIMF3INV.BAM~ ~OVERRIDE/C0451INV.BAM~
+COPY_EXISTING ~CIMC3INV.BAM~ ~OVERRIDE/C0461INV.BAM~
+COPY_EXISTING ~CGMF3INV.BAM~ ~OVERRIDE/C0471INV.BAM~
+COPY_EXISTING ~CGMC3INV.BAM~ ~OVERRIDE/C0481INV.BAM~
+COPY_EXISTING ~COMF3INV.BAM~ ~OVERRIDE/C0491INV.BAM~
+COPY_EXISTING ~COMC3INV.BAM~ ~OVERRIDE/C0501INV.BAM~
+
+COPY_EXISTING ~CHFF3INV.BAM~ ~OVERRIDE/C0511INV.BAM~
+COPY_EXISTING ~CHFC3INV.BAM~ ~OVERRIDE/C0521INV.BAM~
+COPY_EXISTING ~CEFF3INV.BAM~ ~OVERRIDE/C0531INV.BAM~
+COPY_EXISTING ~CEFC3INV.BAM~ ~OVERRIDE/C0541INV.BAM~
+COPY_EXISTING ~CDFF3INV.BAM~ ~OVERRIDE/C0551INV.BAM~
+COPY_EXISTING ~CDFC3INV.BAM~ ~OVERRIDE/C0561INV.BAM~
+COPY_EXISTING ~CIFF3INV.BAM~ ~OVERRIDE/C0571INV.BAM~
+COPY_EXISTING ~CIFC3INV.BAM~ ~OVERRIDE/C0581INV.BAM~
+COPY_EXISTING ~CGFF3INV.BAM~ ~OVERRIDE/C0591INV.BAM~
+COPY_EXISTING ~CGFC3INV.BAM~ ~OVERRIDE/C0601INV.BAM~
+COPY_EXISTING ~COFF3INV.BAM~ ~OVERRIDE/C0611INV.BAM~
+COPY_EXISTING ~COFC3INV.BAM~ ~OVERRIDE/C0621INV.BAM~
+
+COPY_EXISTING ~CHMW3INV.BAM~ ~OVERRIDE/C0631INV.BAM~
+COPY_EXISTING ~CEMW3INV.BAM~ ~OVERRIDE/C0641INV.BAM~
+COPY_EXISTING ~CDMW3INV.BAM~ ~OVERRIDE/C0651INV.BAM~
+COPY_EXISTING ~CHFW3INV.BAM~ ~OVERRIDE/C0661INV.BAM~
+COPY_EXISTING ~CEFW3INV.BAM~ ~OVERRIDE/C0671INV.BAM~
+COPY_EXISTING ~CDFW3INV.BAM~ ~OVERRIDE/C0681INV.BAM~
+COPY_EXISTING ~CHMT3INV.BAM~ ~OVERRIDE/C0691INV.BAM~
+COPY_EXISTING ~CEMT3INV.BAM~ ~OVERRIDE/C0701INV.BAM~
+COPY_EXISTING ~CDMT3INV.BAM~ ~OVERRIDE/C0711INV.BAM~
+COPY_EXISTING ~CIMT3INV.BAM~ ~OVERRIDE/C0721INV.BAM~
+COPY_EXISTING ~CHFT3INV.BAM~ ~OVERRIDE/C0731INV.BAM~
+COPY_EXISTING ~CEFT3INV.BAM~ ~OVERRIDE/C0741INV.BAM~
+COPY_EXISTING ~CDFT3INV.BAM~ ~OVERRIDE/C0751INV.BAM~
+COPY_EXISTING ~CIFT3INV.BAM~ ~OVERRIDE/C0761INV.BAM~
+
+COPY_EXISTING ~CHMF4INV.BAM~ ~OVERRIDE/C0771INV.BAM~
+COPY_EXISTING ~CHMC4INV.BAM~ ~OVERRIDE/C0781INV.BAM~
+COPY_EXISTING ~CEMF4INV.BAM~ ~OVERRIDE/C0791INV.BAM~
+COPY_EXISTING ~CEMC4INV.BAM~ ~OVERRIDE/C0801INV.BAM~
+COPY_EXISTING ~CDMF4INV.BAM~ ~OVERRIDE/C0811INV.BAM~
+COPY_EXISTING ~CDMC4INV.BAM~ ~OVERRIDE/C0821INV.BAM~
+COPY_EXISTING ~CIMF4INV.BAM~ ~OVERRIDE/C0831INV.BAM~
+COPY_EXISTING ~CIMC4INV.BAM~ ~OVERRIDE/C0841INV.BAM~
+COPY_EXISTING ~CGMF4INV.BAM~ ~OVERRIDE/C0851INV.BAM~
+COPY_EXISTING ~CGMC4INV.BAM~ ~OVERRIDE/C0861INV.BAM~
+COPY_EXISTING ~COMF4INV.BAM~ ~OVERRIDE/C0871INV.BAM~
+COPY_EXISTING ~COMC4INV.BAM~ ~OVERRIDE/C0881INV.BAM~
+
+COPY_EXISTING ~CHFF4INV.BAM~ ~OVERRIDE/C0891INV.BAM~
+COPY_EXISTING ~CHFC4INV.BAM~ ~OVERRIDE/C0901INV.BAM~
+COPY_EXISTING ~CEFF4INV.BAM~ ~OVERRIDE/C0911INV.BAM~
+COPY_EXISTING ~CEFC4INV.BAM~ ~OVERRIDE/C0921INV.BAM~
+COPY_EXISTING ~CDFF4INV.BAM~ ~OVERRIDE/C0931INV.BAM~
+COPY_EXISTING ~CDFC4INV.BAM~ ~OVERRIDE/C0941INV.BAM~
+COPY_EXISTING ~CIFF4INV.BAM~ ~OVERRIDE/C0951INV.BAM~
+COPY_EXISTING ~CIFC4INV.BAM~ ~OVERRIDE/C0961INV.BAM~
+COPY_EXISTING ~CGFF4INV.BAM~ ~OVERRIDE/C0971INV.BAM~
+COPY_EXISTING ~CGFC4INV.BAM~ ~OVERRIDE/C0981INV.BAM~
+COPY_EXISTING ~COFF4INV.BAM~ ~OVERRIDE/C0991INV.BAM~
+COPY_EXISTING ~COFC4INV.BAM~ ~OVERRIDE/C0_11INV.BAM~
+
+COPY_EXISTING ~CHMW4INV.BAM~ ~OVERRIDE/C0_21INV.BAM~
+COPY_EXISTING ~CEMW4INV.BAM~ ~OVERRIDE/C0_31INV.BAM~
+COPY_EXISTING ~CDMW4INV.BAM~ ~OVERRIDE/C0_41INV.BAM~
+COPY_EXISTING ~CHFW4INV.BAM~ ~OVERRIDE/C0_51INV.BAM~
+COPY_EXISTING ~CEFW4INV.BAM~ ~OVERRIDE/C0_61INV.BAM~
+COPY_EXISTING ~CDFW4INV.BAM~ ~OVERRIDE/C0_71INV.BAM~
+COPY_EXISTING ~CHMT4INV.BAM~ ~OVERRIDE/C0_81INV.BAM~
+COPY_EXISTING ~CEMT4INV.BAM~ ~OVERRIDE/C0_91INV.BAM~
+COPY_EXISTING ~CDMT4INV.BAM~ ~OVERRIDE/C0_a1INV.BAM~
+COPY_EXISTING ~CIMT4INV.BAM~ ~OVERRIDE/C0_b1INV.BAM~
+COPY_EXISTING ~CHFT4INV.BAM~ ~OVERRIDE/C0_c1INV.BAM~
+COPY_EXISTING ~CEFT4INV.BAM~ ~OVERRIDE/C0_d1INV.BAM~
+COPY_EXISTING ~CDFT4INV.BAM~ ~OVERRIDE/C0_e1INV.BAM~
+COPY_EXISTING ~CIFT4INV.BAM~ ~OVERRIDE/C0_f1INV.BAM~
+
+COPY_EXISTING ~CGMW2INV.BAM~ ~OVERRIDE/C0_g1INV.BAM~
+COPY_EXISTING ~CGFW2INV.BAM~ ~OVERRIDE/C0_h1INV.BAM~
+COPY_EXISTING ~COMW2INV.BAM~ ~OVERRIDE/C0_i1INV.BAM~
+COPY_EXISTING ~COFW2INV.BAM~ ~OVERRIDE/C0_j1INV.BAM~
+COPY_EXISTING ~CGMT2INV.BAM~ ~OVERRIDE/C0_k1INV.BAM~
+COPY_EXISTING ~CGFT2INV.BAM~ ~OVERRIDE/C0_l1INV.BAM~
+COPY_EXISTING ~COMT2INV.BAM~ ~OVERRIDE/C0_m1INV.BAM~
+COPY_EXISTING ~COFT2INV.BAM~ ~OVERRIDE/C0_n1INV.BAM~
+
+COPY_EXISTING ~CGMW3INV.BAM~ ~OVERRIDE/C0_o1INV.BAM~
+COPY_EXISTING ~CGFW3INV.BAM~ ~OVERRIDE/C0_p1INV.BAM~
+COPY_EXISTING ~COMW3INV.BAM~ ~OVERRIDE/C0_q1INV.BAM~
+COPY_EXISTING ~COFW3INV.BAM~ ~OVERRIDE/C0_r1INV.BAM~
+COPY_EXISTING ~CGMT3INV.BAM~ ~OVERRIDE/C0_s1INV.BAM~
+COPY_EXISTING ~CGFT3INV.BAM~ ~OVERRIDE/C0_t1INV.BAM~
+COPY_EXISTING ~COMT3INV.BAM~ ~OVERRIDE/C0_u1INV.BAM~
+COPY_EXISTING ~COFT3INV.BAM~ ~OVERRIDE/C0_v1INV.BAM~
+
+COPY_EXISTING ~CGMW4INV.BAM~ ~OVERRIDE/C0_w1INV.BAM~
+COPY_EXISTING ~CGFW4INV.BAM~ ~OVERRIDE/C0_x1INV.BAM~
+COPY_EXISTING ~COMW4INV.BAM~ ~OVERRIDE/C0_y1INV.BAM~
+COPY_EXISTING ~COFW4INV.BAM~ ~OVERRIDE/C0_z1INV.BAM~
+COPY_EXISTING ~CGMT4INV.BAM~ ~OVERRIDE/C01_1INV.BAM~
+COPY_EXISTING ~CGFT4INV.BAM~ ~OVERRIDE/C02_1INV.BAM~
+COPY_EXISTING ~COMT4INV.BAM~ ~OVERRIDE/C03_1INV.BAM~
+COPY_EXISTING ~COFT4INV.BAM~ ~OVERRIDE/C04_1INV.BAM~
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_2 BEGIN
+    ~6000~ => ~CLERIC_MALE_HUMAN_2~
+    ~6001~ => ~CLERIC_MALE_ELF_2~
+    ~6002~ => ~CLERIC_MALE_DWARF_2~
+    ~6003~ => ~CLERIC_MALE_HALFLING_2~
+    ~6004~ => ~CLERIC_MALE_GNOME_2~
+    ~6005~ => ~CLERIC_MALE_HALFORC_2~
+    ~6010~ => ~CLERIC_FEMALE_HUMAN_2~
+    ~6011~ => ~CLERIC_FEMALE_ELF_2~
+    ~6012~ => ~CLERIC_FEMALE_DWARF_2~
+    ~6013~ => ~CLERIC_FEMALE_HALFLING_2~
+    ~6014~ => ~CLERIC_FEMALE_GNOME_2~
+    ~6015~ => ~CLERIC_FEMALE_HALFORC_2~
+
+    ~6100~ => ~FIGHTER_MALE_HUMAN_2~
+    ~6101~ => ~FIGHTER_MALE_ELF_2~
+    ~6102~ => ~FIGHTER_MALE_DWARF_2~
+    ~6103~ => ~FIGHTER_MALE_HALFLING_2~
+    ~6104~ => ~FIGHTER_MALE_GNOME_2~
+    ~6105~ => ~FIGHTER_MALE_HALFORC_2~
+    ~6110~ => ~FIGHTER_FEMALE_HUMAN_2~
+    ~6111~ => ~FIGHTER_FEMALE_ELF_2~
+    ~6112~ => ~FIGHTER_FEMALE_DWARF_2~
+    ~6113~ => ~FIGHTER_FEMALE_HALFLING_2~
+    ~6114~ => ~FIGHTER_FEMALE_GNOME_2~
+    ~6115~ => ~FIGHTER_FEMALE_HALFORC_2~
+    
+    ~6200~ => ~MAGE_MALE_HUMAN_2~
+    ~6201~ => ~MAGE_MALE_ELF_2~
+    ~6202~ => ~MAGE_MALE_DWARF_2~
+    ~6204~ => ~MAGE_MALE_GNOME_2~
+    ~6205~ => ~MAGE_MALE_HALFORC_2~
+    ~6210~ => ~MAGE_FEMALE_HUMAN_2~
+    ~6211~ => ~MAGE_FEMALE_ELF_2~
+    ~6212~ => ~MAGE_FEMALE_DWARF_2~
+    ~6214~ => ~MAGE_FEMALE_GNOME_2~
+    ~6215~ => ~MAGE_FEMALE_HALFORC_2~
+
+    ~6300~ => ~THIEF_MALE_HUMAN_2~
+    ~6301~ => ~THIEF_MALE_ELF_2~
+    ~6302~ => ~THIEF_MALE_DWARF_2~
+    ~6303~ => ~THIEF_MALE_HALFLING_2~
+    ~6304~ => ~THIEF_MALE_GNOME_2~
+    ~6305~ => ~THIEF_MALE_HALFORC_2~
+    ~6310~ => ~THIEF_FEMALE_HUMAN_2~
+    ~6311~ => ~THIEF_FEMALE_ELF_2~
+    ~6312~ => ~THIEF_FEMALE_DWARF_2~
+    ~6313~ => ~THIEF_FEMALE_HALFLING_2~
+    ~6314~ => ~THIEF_FEMALE_GNOME_2~
+    ~6315~ => ~THIEF_FEMALE_HALFORC_2~
+
+  END
+  ACTION_PHP_EACH anims_armor_2 AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+
+/////////// MALE CLERIC
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C001
+resref_paperdoll=C002
+resref_armor_base=1
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C003
+resref_paperdoll=C004
+resref_armor_base=3
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CDMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C005
+resref_paperdoll=C006
+resref_armor_base=5
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMB
+resref_paperdoll=CIMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C007
+resref_paperdoll=C008
+resref_armor_base=7
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CGMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C005
+resref_paperdoll=C010
+resref_armor_base=5
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=COMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C001
+resref_paperdoll=C012
+resref_armor_base=1
+resref_armor_specific=2~~~~~ //"
+  END
+
+/////////// FEMALE CLERIC
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C013
+resref_paperdoll=C014
+resref_armor_base=3
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C015
+resref_paperdoll=C016
+resref_armor_base=5
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFB
+resref_paperdoll=CDFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C017
+resref_paperdoll=C018
+resref_armor_base=7
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CIFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C019
+resref_paperdoll=C020
+resref_armor_base=9
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CGFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C019
+resref_paperdoll=C022
+resref_armor_base=9
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=COFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C013
+resref_paperdoll=C024
+resref_armor_base=3
+resref_armor_specific=4~~~~~ //"
+  END
+  
+/////////// MALE FIGHTER
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C001
+resref_paperdoll=C001
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C003
+resref_paperdoll=C003
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CDMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C005
+resref_paperdoll=C005
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMB
+resref_paperdoll=CIMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C007
+resref_paperdoll=C007
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CGMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C005
+resref_paperdoll=C009
+resref_armor_base=5
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=COMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C001
+resref_paperdoll=C011
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+
+/////////// FEMALE FIGHTER
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C013
+resref_paperdoll=C013
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C015
+resref_paperdoll=C015
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFB
+resref_paperdoll=CDFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C017
+resref_paperdoll=C017
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CIFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C019
+resref_paperdoll=C019
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CGFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C019
+resref_paperdoll=C021
+resref_armor_base=9
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=COFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C013
+resref_paperdoll=C023
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+/////////// MALE MAGE
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMW
+resref_paperdoll=CHMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C025
+resref_paperdoll=C025
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMW
+resref_paperdoll=CEMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C026
+resref_paperdoll=C026
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMW
+resref_paperdoll=CDMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C027
+resref_paperdoll=C027
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMW
+resref_paperdoll=CGMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C027
+resref_paperdoll=C0_g
+resref_armor_base=7
+resref_armor_specific=g~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMW
+resref_paperdoll=COMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C025
+resref_paperdoll=C0_i
+resref_armor_base=5
+resref_armor_specific=i~~~~~ //"
+  END
+  
+/////////// FEMALE MAGE
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFW
+resref_paperdoll=CHFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C028
+resref_paperdoll=C028
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFW
+resref_paperdoll=CEFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C029
+resref_paperdoll=C029
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFW
+resref_paperdoll=CDFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C030
+resref_paperdoll=C030
+resref_armor_base=0
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFW
+resref_paperdoll=CGFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C030
+resref_paperdoll=C0_h
+resref_armor_base=0
+resref_armor_specific=h~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFW
+resref_paperdoll=COFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C028
+resref_paperdoll=C0_j
+resref_armor_base=8
+resref_armor_specific=j~~~~~ //"
+  END
+  
+/////////// MALE THIEF
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMT
+resref_paperdoll=CHMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C031
+resref_paperdoll=C031
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMT
+resref_paperdoll=CEMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C032
+resref_paperdoll=C032
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMT
+resref_paperdoll=CDMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C033
+resref_paperdoll=C033
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMT
+resref_paperdoll=CIMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C034
+resref_paperdoll=C034
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMT
+resref_paperdoll=CGMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C033
+resref_paperdoll=C0_k
+resref_armor_base=3
+resref_armor_specific=k~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMT
+resref_paperdoll=COMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C031
+resref_paperdoll=C0_m
+resref_armor_base=1
+resref_armor_specific=m~~~~~ //"
+  END
+  
+/////////// FEMALE THIEF
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFT
+resref_paperdoll=CHFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C035
+resref_paperdoll=C035
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFT
+resref_paperdoll=CEFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C036
+resref_paperdoll=C036
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFT
+resref_paperdoll=CDFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C037
+resref_paperdoll=C037
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFT
+resref_paperdoll=CIFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C038
+resref_paperdoll=C038
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFT
+resref_paperdoll=CGFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C038
+resref_paperdoll=C0_L
+resref_armor_base=8
+resref_armor_specific=L~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFT
+resref_paperdoll=COFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C035
+resref_paperdoll=C0_N
+resref_armor_base=5
+resref_armor_specific=N~~~~~ //"
+  END
+  
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_2 BEGIN
+    ~6000~ => ~CLERIC_MALE_HUMAN_2~
+    ~6001~ => ~CLERIC_MALE_ELF_2~
+    ~6002~ => ~CLERIC_MALE_DWARF_2~
+    ~6003~ => ~CLERIC_MALE_HALFLING_2~
+    ~6004~ => ~CLERIC_MALE_GNOME_2~
+    ~6005~ => ~CLERIC_MALE_HALFORC_2~
+    ~6010~ => ~CLERIC_FEMALE_HUMAN_2~
+    ~6011~ => ~CLERIC_FEMALE_ELF_2~
+    ~6012~ => ~CLERIC_FEMALE_DWARF_2~
+    ~6013~ => ~CLERIC_FEMALE_HALFLING_2~
+    ~6014~ => ~CLERIC_FEMALE_GNOME_2~
+    ~6015~ => ~CLERIC_FEMALE_HALFORC_2~
+
+    ~6100~ => ~FIGHTER_MALE_HUMAN_2~
+    ~6101~ => ~FIGHTER_MALE_ELF_2~
+    ~6102~ => ~FIGHTER_MALE_DWARF_2~
+    ~6103~ => ~FIGHTER_MALE_HALFLING_2~
+    ~6104~ => ~FIGHTER_MALE_GNOME_2~
+    ~6105~ => ~FIGHTER_MALE_HALFORC_2~
+    ~6110~ => ~FIGHTER_FEMALE_HUMAN_2~
+    ~6111~ => ~FIGHTER_FEMALE_ELF_2~
+    ~6112~ => ~FIGHTER_FEMALE_DWARF_2~
+    ~6113~ => ~FIGHTER_FEMALE_HALFLING_2~
+    ~6114~ => ~FIGHTER_FEMALE_GNOME_2~
+    ~6115~ => ~FIGHTER_FEMALE_HALFORC_2~
+    
+    ~6200~ => ~MAGE_MALE_HUMAN_2~
+    ~6201~ => ~MAGE_MALE_ELF_2~
+    ~6202~ => ~MAGE_MALE_DWARF_2~
+    ~6204~ => ~MAGE_MALE_GNOME_2~
+    ~6205~ => ~MAGE_MALE_HALFORC_2~
+    ~6210~ => ~MAGE_FEMALE_HUMAN_2~
+    ~6211~ => ~MAGE_FEMALE_ELF_2~
+    ~6212~ => ~MAGE_FEMALE_DWARF_2~
+    ~6214~ => ~MAGE_FEMALE_GNOME_2~
+    ~6215~ => ~MAGE_FEMALE_HALFORC_2~
+
+  END
+  ACTION_PHP_EACH anims_armor_2 AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+
+/////////// MALE CLERIC
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C001
+resref_paperdoll=C002
+resref_armor_base=1
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C003
+resref_paperdoll=C004
+resref_armor_base=3
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CDMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C005
+resref_paperdoll=C006
+resref_armor_base=5
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMB
+resref_paperdoll=CIMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C007
+resref_paperdoll=C008
+resref_armor_base=7
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CGMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C005
+resref_paperdoll=C010
+resref_armor_base=5
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=COMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C001
+resref_paperdoll=C012
+resref_armor_base=1
+resref_armor_specific=2~~~~~ //"
+  END
+
+/////////// FEMALE CLERIC
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C013
+resref_paperdoll=C014
+resref_armor_base=3
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C015
+resref_paperdoll=C016
+resref_armor_base=5
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFB
+resref_paperdoll=CDFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C017
+resref_paperdoll=C018
+resref_armor_base=7
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CIFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C019
+resref_paperdoll=C020
+resref_armor_base=9
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CGFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C019
+resref_paperdoll=C022
+resref_armor_base=9
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=COFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C013
+resref_paperdoll=C024
+resref_armor_base=3
+resref_armor_specific=4~~~~~ //"
+  END
+  
+/////////// MALE FIGHTER
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C001
+resref_paperdoll=C001
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C003
+resref_paperdoll=C003
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CDMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C005
+resref_paperdoll=C005
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMB
+resref_paperdoll=CIMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C007
+resref_paperdoll=C007
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CGMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C005
+resref_paperdoll=C009
+resref_armor_base=5
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=COMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C001
+resref_paperdoll=C011
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+
+/////////// FEMALE FIGHTER
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C013
+resref_paperdoll=C013
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C015
+resref_paperdoll=C015
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFB
+resref_paperdoll=CDFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C017
+resref_paperdoll=C017
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CIFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C019
+resref_paperdoll=C019
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CGFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C019
+resref_paperdoll=C021
+resref_armor_base=9
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=COFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C013
+resref_paperdoll=C023
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+/////////// MALE MAGE
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMW
+resref_paperdoll=CHMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C025
+resref_paperdoll=C025
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMW
+resref_paperdoll=CEMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C026
+resref_paperdoll=C026
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMW
+resref_paperdoll=CDMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C027
+resref_paperdoll=C027
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMW
+resref_paperdoll=CGMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C027
+resref_paperdoll=C0_g
+resref_armor_base=7
+resref_armor_specific=g~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMW
+resref_paperdoll=COMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C025
+resref_paperdoll=C0_i
+resref_armor_base=5
+resref_armor_specific=i~~~~~ //"
+  END
+  
+/////////// FEMALE MAGE
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFW
+resref_paperdoll=CHFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C028
+resref_paperdoll=C028
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFW
+resref_paperdoll=CEFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C029
+resref_paperdoll=C029
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFW
+resref_paperdoll=CDFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C030
+resref_paperdoll=C030
+resref_armor_base=0
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFW
+resref_paperdoll=CGFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C030
+resref_paperdoll=C0_h
+resref_armor_base=0
+resref_armor_specific=h~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFW
+resref_paperdoll=COFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C028
+resref_paperdoll=C0_j
+resref_armor_base=8
+resref_armor_specific=j~~~~~ //"
+  END
+  
+/////////// MALE THIEF
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMT
+resref_paperdoll=CHMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C031
+resref_paperdoll=C031
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMT
+resref_paperdoll=CEMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C032
+resref_paperdoll=C032
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMT
+resref_paperdoll=CDMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C033
+resref_paperdoll=C033
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMT
+resref_paperdoll=CIMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C034
+resref_paperdoll=C034
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMT
+resref_paperdoll=CGMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C033
+resref_paperdoll=C0_k
+resref_armor_base=3
+resref_armor_specific=k~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMT
+resref_paperdoll=COMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C031
+resref_paperdoll=C0_m
+resref_armor_base=1
+resref_armor_specific=m~~~~~ //"
+  END
+  
+/////////// FEMALE THIEF
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFT
+resref_paperdoll=CHFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C035
+resref_paperdoll=C035
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFT
+resref_paperdoll=CEFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C036
+resref_paperdoll=C036
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFT
+resref_paperdoll=CDFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C037
+resref_paperdoll=C037
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFT
+resref_paperdoll=CIFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C038
+resref_paperdoll=C038
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFT
+resref_paperdoll=CGFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C038
+resref_paperdoll=C0_L
+resref_armor_base=8
+resref_armor_specific=L~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFT
+resref_paperdoll=COFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C035
+resref_paperdoll=C0_N
+resref_armor_base=5
+resref_armor_specific=N~~~~~ //"
+  END
+  
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_3 BEGIN
+    ~6000~ => ~CLERIC_MALE_HUMAN_3~
+    ~6001~ => ~CLERIC_MALE_ELF_3~
+    ~6002~ => ~CLERIC_MALE_DWARF_3~
+    ~6003~ => ~CLERIC_MALE_HALFLING_3~
+    ~6004~ => ~CLERIC_MALE_GNOME_3~
+    ~6005~ => ~CLERIC_MALE_HALFORC_3~
+    ~6010~ => ~CLERIC_FEMALE_HUMAN_3~
+    ~6011~ => ~CLERIC_FEMALE_ELF_3~
+    ~6012~ => ~CLERIC_FEMALE_DWARF_3~
+    ~6013~ => ~CLERIC_FEMALE_HALFLING_3~
+    ~6014~ => ~CLERIC_FEMALE_GNOME_3~
+    ~6015~ => ~CLERIC_FEMALE_HALFORC_3~
+
+    ~6100~ => ~FIGHTER_MALE_HUMAN_3~
+    ~6101~ => ~FIGHTER_MALE_ELF_3~
+    ~6102~ => ~FIGHTER_MALE_DWARF_3~
+    ~6103~ => ~FIGHTER_MALE_HALFLING_3~
+    ~6104~ => ~FIGHTER_MALE_GNOME_3~
+    ~6105~ => ~FIGHTER_MALE_HALFORC_3~
+    ~6110~ => ~FIGHTER_FEMALE_HUMAN_3~
+    ~6111~ => ~FIGHTER_FEMALE_ELF_3~
+    ~6112~ => ~FIGHTER_FEMALE_DWARF_3~
+    ~6113~ => ~FIGHTER_FEMALE_HALFLING_3~
+    ~6114~ => ~FIGHTER_FEMALE_GNOME_3~
+    ~6115~ => ~FIGHTER_FEMALE_HALFORC_3~
+    
+    ~6200~ => ~MAGE_MALE_HUMAN_3~
+    ~6201~ => ~MAGE_MALE_ELF_3~
+    ~6202~ => ~MAGE_MALE_DWARF_3~
+    ~6204~ => ~MAGE_MALE_GNOME_3~
+    ~6205~ => ~MAGE_MALE_HALFORC_3~
+    ~6210~ => ~MAGE_FEMALE_HUMAN_3~
+    ~6211~ => ~MAGE_FEMALE_ELF_3~
+    ~6212~ => ~MAGE_FEMALE_DWARF_3~
+    ~6214~ => ~MAGE_FEMALE_GNOME_3~
+    ~6215~ => ~MAGE_FEMALE_HALFORC_3~
+
+    ~6300~ => ~THIEF_MALE_HUMAN_3~
+    ~6301~ => ~THIEF_MALE_ELF_3~
+    ~6302~ => ~THIEF_MALE_DWARF_3~
+    ~6303~ => ~THIEF_MALE_HALFLING_3~
+    ~6304~ => ~THIEF_MALE_GNOME_3~
+    ~6305~ => ~THIEF_MALE_HALFORC_3~
+    ~6310~ => ~THIEF_FEMALE_HUMAN_3~
+    ~6311~ => ~THIEF_FEMALE_ELF_3~
+    ~6312~ => ~THIEF_FEMALE_DWARF_3~
+    ~6313~ => ~THIEF_FEMALE_HALFLING_3~
+    ~6314~ => ~THIEF_FEMALE_GNOME_3~
+    ~6315~ => ~THIEF_FEMALE_HALFORC_3~
+
+  END
+  ACTION_PHP_EACH anims_armor_3 AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+
+/////////// MALE CLERIC
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C039
+resref_paperdoll=C040
+resref_armor_base=9
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C041
+resref_paperdoll=C042
+resref_armor_base=1
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CDMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C043
+resref_paperdoll=C044
+resref_armor_base=3
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMB
+resref_paperdoll=CIMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C045
+resref_paperdoll=C046
+resref_armor_base=5
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CGMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C043
+resref_paperdoll=C048
+resref_armor_base=3
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=COMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C039
+resref_paperdoll=C050
+resref_armor_base=9
+resref_armor_specific=0~~~~~ //"
+  END
+
+/////////// FEMALE CLERIC
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C051
+resref_paperdoll=C052
+resref_armor_base=1
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C053
+resref_paperdoll=C054
+resref_armor_base=3
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFB
+resref_paperdoll=CDFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C055
+resref_paperdoll=C056
+resref_armor_base=5
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CIFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C057
+resref_paperdoll=C058
+resref_armor_base=7
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CGFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C057
+resref_paperdoll=C060
+resref_armor_base=7
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=COFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C051
+resref_paperdoll=C062
+resref_armor_base=1
+resref_armor_specific=2~~~~~ //"
+  END
+  
+/////////// MALE FIGHTER
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C039
+resref_paperdoll=C039
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C041
+resref_paperdoll=C041
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CDMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C043
+resref_paperdoll=C043
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMB
+resref_paperdoll=CIMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C045
+resref_paperdoll=C045
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CGMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C043
+resref_paperdoll=C047
+resref_armor_base=3
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=COMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C039
+resref_paperdoll=C049
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+
+/////////// FEMALE FIGHTER
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C051
+resref_paperdoll=C051
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C053
+resref_paperdoll=C053
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFB
+resref_paperdoll=CDFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C055
+resref_paperdoll=C055
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CIFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C057
+resref_paperdoll=C057
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CGFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C057
+resref_paperdoll=C059
+resref_armor_base=5
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=COFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C051
+resref_paperdoll=C061
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+/////////// MALE MAGE
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMW
+resref_paperdoll=CHMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C063
+resref_paperdoll=C063
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMW
+resref_paperdoll=CEMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C064
+resref_paperdoll=C064
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMW
+resref_paperdoll=CDMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C065
+resref_paperdoll=C065
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMW
+resref_paperdoll=CGMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C065
+resref_paperdoll=C0_O
+resref_armor_base=5
+resref_armor_specific=O~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMW
+resref_paperdoll=COMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C063
+resref_paperdoll=C0_Q
+resref_armor_base=3
+resref_armor_specific=Q~~~~~ //"
+  END
+  
+/////////// FEMALE MAGE
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFW
+resref_paperdoll=CHFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C066
+resref_paperdoll=C066
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFW
+resref_paperdoll=CEFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C067
+resref_paperdoll=C067
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFW
+resref_paperdoll=CDFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C068 
+resref_paperdoll=C068
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFW
+resref_paperdoll=CGFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C068
+resref_paperdoll=C0_P
+resref_armor_base=8
+resref_armor_specific=P~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFW
+resref_paperdoll=COFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C066
+resref_paperdoll=C0_R
+resref_armor_base=6
+resref_armor_specific=R~~~~~ //"
+  END
+  
+/////////// MALE THIEF
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMT
+resref_paperdoll=CHMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C069
+resref_paperdoll=C069
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMT
+resref_paperdoll=CEMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C070
+resref_paperdoll=C070 
+resref_armor_base=0
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMT
+resref_paperdoll=CDMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C071
+resref_paperdoll=C071
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMT
+resref_paperdoll=CIMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C072
+resref_paperdoll=C072
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMT
+resref_paperdoll=CGMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C071
+resref_paperdoll=C0_S
+resref_armor_base=1
+resref_armor_specific=S~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMT
+resref_paperdoll=COMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C069
+resref_paperdoll=C0_U
+resref_armor_base=1
+resref_armor_specific=U~~~~~ //"
+  END
+  
+/////////// FEMALE THIEF
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFT
+resref_paperdoll=CHFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C073
+resref_paperdoll=C073
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFT
+resref_paperdoll=CEFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C074
+resref_paperdoll=C074
+resref_armor_base=4 
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFT
+resref_paperdoll=CDFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C075
+resref_paperdoll=C075
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFT
+resref_paperdoll=CIFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C076
+resref_paperdoll=C076
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFT
+resref_paperdoll=CGFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C076
+resref_paperdoll=C0_T
+resref_armor_base=6
+resref_armor_specific=T~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFT
+resref_paperdoll=COFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C073
+resref_paperdoll=C0_V
+resref_armor_base=3
+resref_armor_specific=V~~~~~ //"
+  END
+
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_3 BEGIN
+    ~6000~ => ~CLERIC_MALE_HUMAN_3~
+    ~6001~ => ~CLERIC_MALE_ELF_3~
+    ~6002~ => ~CLERIC_MALE_DWARF_3~
+    ~6003~ => ~CLERIC_MALE_HALFLING_3~
+    ~6004~ => ~CLERIC_MALE_GNOME_3~
+    ~6005~ => ~CLERIC_MALE_HALFORC_3~
+    ~6010~ => ~CLERIC_FEMALE_HUMAN_3~
+    ~6011~ => ~CLERIC_FEMALE_ELF_3~
+    ~6012~ => ~CLERIC_FEMALE_DWARF_3~
+    ~6013~ => ~CLERIC_FEMALE_HALFLING_3~
+    ~6014~ => ~CLERIC_FEMALE_GNOME_3~
+    ~6015~ => ~CLERIC_FEMALE_HALFORC_3~
+
+    ~6100~ => ~FIGHTER_MALE_HUMAN_3~
+    ~6101~ => ~FIGHTER_MALE_ELF_3~
+    ~6102~ => ~FIGHTER_MALE_DWARF_3~
+    ~6103~ => ~FIGHTER_MALE_HALFLING_3~
+    ~6104~ => ~FIGHTER_MALE_GNOME_3~
+    ~6105~ => ~FIGHTER_MALE_HALFORC_3~
+    ~6110~ => ~FIGHTER_FEMALE_HUMAN_3~
+    ~6111~ => ~FIGHTER_FEMALE_ELF_3~
+    ~6112~ => ~FIGHTER_FEMALE_DWARF_3~
+    ~6113~ => ~FIGHTER_FEMALE_HALFLING_3~
+    ~6114~ => ~FIGHTER_FEMALE_GNOME_3~
+    ~6115~ => ~FIGHTER_FEMALE_HALFORC_3~
+    
+    ~6200~ => ~MAGE_MALE_HUMAN_3~
+    ~6201~ => ~MAGE_MALE_ELF_3~
+    ~6202~ => ~MAGE_MALE_DWARF_3~
+    ~6204~ => ~MAGE_MALE_GNOME_3~
+    ~6205~ => ~MAGE_MALE_HALFORC_3~
+    ~6210~ => ~MAGE_FEMALE_HUMAN_3~
+    ~6211~ => ~MAGE_FEMALE_ELF_3~
+    ~6212~ => ~MAGE_FEMALE_DWARF_3~
+    ~6214~ => ~MAGE_FEMALE_GNOME_3~
+    ~6215~ => ~MAGE_FEMALE_HALFORC_3~
+
+  END
+  ACTION_PHP_EACH anims_armor_3 AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+      LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+
+/////////// MALE CLERIC
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C039
+resref_paperdoll=C040
+resref_armor_base=9
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C041
+resref_paperdoll=C042
+resref_armor_base=1
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CDMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C043
+resref_paperdoll=C044
+resref_armor_base=3
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMB
+resref_paperdoll=CIMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C045
+resref_paperdoll=C046
+resref_armor_base=5
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CGMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C043
+resref_paperdoll=C048
+resref_armor_base=3
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=COMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C039
+resref_paperdoll=C050
+resref_armor_base=9
+resref_armor_specific=0~~~~~ //"
+  END
+
+/////////// FEMALE CLERIC
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C051
+resref_paperdoll=C052
+resref_armor_base=1
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C053
+resref_paperdoll=C054
+resref_armor_base=3
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFB
+resref_paperdoll=CDFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C055
+resref_paperdoll=C056
+resref_armor_base=5
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CIFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C057
+resref_paperdoll=C058
+resref_armor_base=7
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CGFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C057
+resref_paperdoll=C060
+resref_armor_base=7
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=COFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C051
+resref_paperdoll=C062
+resref_armor_base=1
+resref_armor_specific=2~~~~~ //"
+  END
+  
+/////////// MALE FIGHTER
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C039
+resref_paperdoll=C039
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C041
+resref_paperdoll=C041
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CDMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C043
+resref_paperdoll=C043
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMB
+resref_paperdoll=CIMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C045
+resref_paperdoll=C045
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CGMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C043
+resref_paperdoll=C047
+resref_armor_base=3
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=COMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C039
+resref_paperdoll=C049
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+
+/////////// FEMALE FIGHTER
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C051
+resref_paperdoll=C051
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C053
+resref_paperdoll=C053
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFB
+resref_paperdoll=CDFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C055
+resref_paperdoll=C055
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CIFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C057
+resref_paperdoll=C057
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CGFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C057
+resref_paperdoll=C059
+resref_armor_base=5
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=COFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C051
+resref_paperdoll=C061
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+/////////// MALE MAGE
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMW
+resref_paperdoll=CHMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C063
+resref_paperdoll=C063
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMW
+resref_paperdoll=CEMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C064
+resref_paperdoll=C064
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMW
+resref_paperdoll=CDMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C065
+resref_paperdoll=C065
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMW
+resref_paperdoll=CGMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C065
+resref_paperdoll=C0_O
+resref_armor_base=5
+resref_armor_specific=O~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMW
+resref_paperdoll=COMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C063
+resref_paperdoll=C0_Q
+resref_armor_base=3
+resref_armor_specific=Q~~~~~ //"
+  END
+  
+/////////// FEMALE MAGE
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFW
+resref_paperdoll=CHFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C066
+resref_paperdoll=C066
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFW
+resref_paperdoll=CEFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C067
+resref_paperdoll=C067
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFW
+resref_paperdoll=CDFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C068 
+resref_paperdoll=C068
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFW
+resref_paperdoll=CGFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C068
+resref_paperdoll=C0_P
+resref_armor_base=8
+resref_armor_specific=P~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFW
+resref_paperdoll=COFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C066
+resref_paperdoll=C0_R
+resref_armor_base=6
+resref_armor_specific=R~~~~~ //"
+  END
+  
+/////////// MALE THIEF
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMT
+resref_paperdoll=CHMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C069
+resref_paperdoll=C069
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMT
+resref_paperdoll=CEMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C070
+resref_paperdoll=C070 
+resref_armor_base=0
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMT
+resref_paperdoll=CDMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C071
+resref_paperdoll=C071
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMT
+resref_paperdoll=CIMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C072
+resref_paperdoll=C072
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMT
+resref_paperdoll=CGMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C071
+resref_paperdoll=C0_S
+resref_armor_base=1
+resref_armor_specific=S~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMT
+resref_paperdoll=COMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C069
+resref_paperdoll=C0_U
+resref_armor_base=1
+resref_armor_specific=U~~~~~ //"
+  END
+  
+/////////// FEMALE THIEF
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFT
+resref_paperdoll=CHFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C073
+resref_paperdoll=C073
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFT
+resref_paperdoll=CEFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C074
+resref_paperdoll=C074
+resref_armor_base=4 
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFT
+resref_paperdoll=CDFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C075
+resref_paperdoll=C075
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFT
+resref_paperdoll=CIFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C076
+resref_paperdoll=C076
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFT
+resref_paperdoll=CGFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C076
+resref_paperdoll=C0_T
+resref_armor_base=6
+resref_armor_specific=T~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFT
+resref_paperdoll=COFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C073
+resref_paperdoll=C0_V
+resref_armor_base=3
+resref_armor_specific=V~~~~~ //"
+  END
+
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_4 BEGIN
+    ~6000~ => ~CLERIC_MALE_HUMAN_4~
+    ~6001~ => ~CLERIC_MALE_ELF_4~
+    ~6002~ => ~CLERIC_MALE_DWARF_4~
+    ~6003~ => ~CLERIC_MALE_HALFLING_4~
+    ~6004~ => ~CLERIC_MALE_GNOME_4~
+    ~6005~ => ~CLERIC_MALE_HALFORC_4~
+    ~6010~ => ~CLERIC_FEMALE_HUMAN_4~
+    ~6011~ => ~CLERIC_FEMALE_ELF_4~
+    ~6012~ => ~CLERIC_FEMALE_DWARF_4~
+    ~6013~ => ~CLERIC_FEMALE_HALFLING_4~
+    ~6014~ => ~CLERIC_FEMALE_GNOME_4~
+    ~6015~ => ~CLERIC_FEMALE_HALFORC_4~
+
+    ~6100~ => ~FIGHTER_MALE_HUMAN_4~
+    ~6101~ => ~FIGHTER_MALE_ELF_4~
+    ~6102~ => ~FIGHTER_MALE_DWARF_4~
+    ~6103~ => ~FIGHTER_MALE_HALFLING_4~
+    ~6104~ => ~FIGHTER_MALE_GNOME_4~
+    ~6105~ => ~FIGHTER_MALE_HALFORC_4~
+    ~6110~ => ~FIGHTER_FEMALE_HUMAN_4~
+    ~6111~ => ~FIGHTER_FEMALE_ELF_4~
+    ~6112~ => ~FIGHTER_FEMALE_DWARF_4~
+    ~6113~ => ~FIGHTER_FEMALE_HALFLING_4~
+    ~6114~ => ~FIGHTER_FEMALE_GNOME_4~
+    ~6115~ => ~FIGHTER_FEMALE_HALFORC_4~
+    
+    ~6200~ => ~MAGE_MALE_HUMAN_4~
+    ~6201~ => ~MAGE_MALE_ELF_4~
+    ~6202~ => ~MAGE_MALE_DWARF_4~
+    ~6204~ => ~MAGE_MALE_GNOME_4~
+    ~6205~ => ~MAGE_MALE_HALFORC_4~
+    ~6210~ => ~MAGE_FEMALE_HUMAN_4~
+    ~6211~ => ~MAGE_FEMALE_ELF_4~
+    ~6212~ => ~MAGE_FEMALE_DWARF_4~
+    ~6214~ => ~MAGE_FEMALE_GNOME_4~
+    ~6215~ => ~MAGE_FEMALE_HALFORC_4~
+
+    ~6300~ => ~THIEF_MALE_HUMAN_4~
+    ~6301~ => ~THIEF_MALE_ELF_4~
+    ~6302~ => ~THIEF_MALE_DWARF_4~
+    ~6303~ => ~THIEF_MALE_HALFLING_4~
+    ~6304~ => ~THIEF_MALE_GNOME_4~
+    ~6305~ => ~THIEF_MALE_HALFORC_4~
+    ~6310~ => ~THIEF_FEMALE_HUMAN_4~
+    ~6311~ => ~THIEF_FEMALE_ELF_4~
+    ~6312~ => ~THIEF_FEMALE_DWARF_4~
+    ~6313~ => ~THIEF_FEMALE_HALFLING_4~
+    ~6314~ => ~THIEF_FEMALE_GNOME_4~
+    ~6315~ => ~THIEF_FEMALE_HALFORC_4~
+
+  END
+  ACTION_PHP_EACH anims_armor_4 AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+
+/////////// MALE CLERIC
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C078
+resref_paperdoll=C078
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C080
+resref_paperdoll=C080
+resref_armor_base=0
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CDMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C082
+resref_paperdoll=C082
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMB
+resref_paperdoll=CIMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C084
+resref_paperdoll=C084
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CGMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C082
+resref_paperdoll=C086
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=COMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C078
+resref_paperdoll=C088
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+
+/////////// FEMALE CLERIC
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C090
+resref_paperdoll=C090
+resref_armor_base=0
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C092
+resref_paperdoll=C092
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFB
+resref_paperdoll=CDFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C094
+resref_paperdoll=C094
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CIFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C096
+resref_paperdoll=C096
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CGFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C096
+resref_paperdoll=C098
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=COFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C090
+resref_paperdoll=C0_1
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+/////////// MALE FIGHTER
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C077
+resref_paperdoll=C077
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C079
+resref_paperdoll=C079
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CDMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C081
+resref_paperdoll=C081
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMB
+resref_paperdoll=CIMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C083
+resref_paperdoll=C083
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CGMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C081
+resref_paperdoll=C085
+resref_armor_base=1
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=COMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C077
+resref_paperdoll=C088
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+
+/////////// FEMALE FIGHTER
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C089
+resref_paperdoll=C089
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C091
+resref_paperdoll=C091
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFB
+resref_paperdoll=CDFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C093
+resref_paperdoll=C093
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CIFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C095
+resref_paperdoll=C095
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CGFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C095
+resref_paperdoll=C097
+resref_armor_base=5
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=COFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C089
+resref_paperdoll=C099
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+/////////// MALE MAGE
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMW
+resref_paperdoll=CHMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_2
+resref_paperdoll=C0_2
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMW
+resref_paperdoll=CEMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_3
+resref_paperdoll=C0_3
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMW
+resref_paperdoll=CDMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_4
+resref_paperdoll=C0_4
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMW
+resref_paperdoll=CGMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_4
+resref_paperdoll=C0_W
+resref_armor_base=4
+resref_armor_specific=W~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMW
+resref_paperdoll=COMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_2
+resref_paperdoll=C0_Y
+resref_armor_base=2
+resref_armor_specific=Y~~~~~ //"
+  END
+  
+/////////// FEMALE MAGE
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFW
+resref_paperdoll=CHFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_5
+resref_paperdoll=C0_5
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFW
+resref_paperdoll=CEFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_6
+resref_paperdoll=C0_6
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFW
+resref_paperdoll=CDFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_7
+resref_paperdoll=C0_7
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFW
+resref_paperdoll=CGFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_7
+resref_paperdoll=C0_X
+resref_armor_base=7
+resref_armor_specific=X~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFW
+resref_paperdoll=COFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_5
+resref_paperdoll=C0_Z
+resref_armor_base=5
+resref_armor_specific=Z~~~~~ //"
+  END
+  
+/////////// MALE THIEF
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMT
+resref_paperdoll=CHMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_8
+resref_paperdoll=C0_8
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMT
+resref_paperdoll=CEMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_9
+resref_paperdoll=C0_9
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMT
+resref_paperdoll=CDMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_A
+resref_paperdoll=C0_A
+resref_armor_base=A
+resref_armor_specific=A~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMT
+resref_paperdoll=CIMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_B
+resref_paperdoll=C0_B
+resref_armor_base=B
+resref_armor_specific=B~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMT
+resref_paperdoll=CGMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_A
+resref_paperdoll=C01_
+resref_armor_base=A
+resref_armor_specific=_~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMT
+resref_paperdoll=COMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_8
+resref_paperdoll=C03_
+resref_armor_base=8
+resref_armor_specific=_~~~~~ //"
+  END
+  
+/////////// FEMALE THIEF
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFT
+resref_paperdoll=CHFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_C
+resref_paperdoll=C0_C
+resref_armor_base=C
+resref_armor_specific=C~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFT
+resref_paperdoll=CEFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_D
+resref_paperdoll=C0_D
+resref_armor_base=D 
+resref_armor_specific=D~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFT
+resref_paperdoll=CDFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_E
+resref_paperdoll=C0_E 
+resref_armor_base=E
+resref_armor_specific=E~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFT
+resref_paperdoll=CIFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_f
+resref_paperdoll=C0_f
+resref_armor_base=F
+resref_armor_specific=F~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFT
+resref_paperdoll=CGFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_F
+resref_paperdoll=C02_
+resref_armor_base=F
+resref_armor_specific=_~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFT
+resref_paperdoll=COFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_C
+resref_paperdoll=C04_
+resref_armor_base=C
+resref_armor_specific=_~~~~~ //"
+  END
+  
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%~
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_4 BEGIN
+    ~6000~ => ~CLERIC_MALE_HUMAN_4~
+    ~6001~ => ~CLERIC_MALE_ELF_4~
+    ~6002~ => ~CLERIC_MALE_DWARF_4~
+    ~6003~ => ~CLERIC_MALE_HALFLING_4~
+    ~6004~ => ~CLERIC_MALE_GNOME_4~
+    ~6005~ => ~CLERIC_MALE_HALFORC_4~
+    ~6010~ => ~CLERIC_FEMALE_HUMAN_4~
+    ~6011~ => ~CLERIC_FEMALE_ELF_4~
+    ~6012~ => ~CLERIC_FEMALE_DWARF_4~
+    ~6013~ => ~CLERIC_FEMALE_HALFLING_4~
+    ~6014~ => ~CLERIC_FEMALE_GNOME_4~
+    ~6015~ => ~CLERIC_FEMALE_HALFORC_4~
+
+    ~6100~ => ~FIGHTER_MALE_HUMAN_4~
+    ~6101~ => ~FIGHTER_MALE_ELF_4~
+    ~6102~ => ~FIGHTER_MALE_DWARF_4~
+    ~6103~ => ~FIGHTER_MALE_HALFLING_4~
+    ~6104~ => ~FIGHTER_MALE_GNOME_4~
+    ~6105~ => ~FIGHTER_MALE_HALFORC_4~
+    ~6110~ => ~FIGHTER_FEMALE_HUMAN_4~
+    ~6111~ => ~FIGHTER_FEMALE_ELF_4~
+    ~6112~ => ~FIGHTER_FEMALE_DWARF_4~
+    ~6113~ => ~FIGHTER_FEMALE_HALFLING_4~
+    ~6114~ => ~FIGHTER_FEMALE_GNOME_4~
+    ~6115~ => ~FIGHTER_FEMALE_HALFORC_4~
+    
+    ~6200~ => ~MAGE_MALE_HUMAN_4~
+    ~6201~ => ~MAGE_MALE_ELF_4~
+    ~6202~ => ~MAGE_MALE_DWARF_4~
+    ~6204~ => ~MAGE_MALE_GNOME_4~
+    ~6205~ => ~MAGE_MALE_HALFORC_4~
+    ~6210~ => ~MAGE_FEMALE_HUMAN_4~
+    ~6211~ => ~MAGE_FEMALE_ELF_4~
+    ~6212~ => ~MAGE_FEMALE_DWARF_4~
+    ~6214~ => ~MAGE_FEMALE_GNOME_4~
+    ~6215~ => ~MAGE_FEMALE_HALFORC_4~
+
+  END
+  ACTION_PHP_EACH anims_armor_4 AS folder => symbol BEGIN
+    LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
+    LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+    COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~equip_helmet=1~~~~~
+    string = EVAL ~~~~~equip_helmet=0~~~~~ //"
+  END
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
+
+/////////// MALE CLERIC
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C078
+resref_paperdoll=C078
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C080
+resref_paperdoll=C080
+resref_armor_base=0
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CDMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C082
+resref_paperdoll=C082
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMB
+resref_paperdoll=CIMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C084
+resref_paperdoll=C084
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CGMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C082
+resref_paperdoll=C086
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=COMC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C078
+resref_paperdoll=C088
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+
+/////////// FEMALE CLERIC
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C090
+resref_paperdoll=C090
+resref_armor_base=0
+resref_armor_specific=0~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C092
+resref_paperdoll=C092
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFB
+resref_paperdoll=CDFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C094
+resref_paperdoll=C094
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CIFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C096
+resref_paperdoll=C096
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CGFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C096
+resref_paperdoll=C098
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=COFC
+resref_armor_base=B
+resref_armor_specific=C~~~~~
+    string = ~~~~~resref=C090
+resref_paperdoll=C0_1
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+/////////// MALE FIGHTER
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=CHMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C077
+resref_paperdoll=C077
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMB
+resref_paperdoll=CEMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C079
+resref_paperdoll=C079
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CDMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C081
+resref_paperdoll=C081
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMB
+resref_paperdoll=CIMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C083
+resref_paperdoll=C083
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMB
+resref_paperdoll=CGMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C081
+resref_paperdoll=C085
+resref_armor_base=1
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMB
+resref_paperdoll=COMF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C077
+resref_paperdoll=C088
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+
+/////////// FEMALE FIGHTER
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=CHFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C089
+resref_paperdoll=C089
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFB
+resref_paperdoll=CEFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C091
+resref_paperdoll=C091
+resref_armor_base=1
+resref_armor_specific=1~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFB
+resref_paperdoll=CDFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C093
+resref_paperdoll=C093
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CIFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C095
+resref_paperdoll=C095
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFB
+resref_paperdoll=CGFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C095
+resref_paperdoll=C097
+resref_armor_base=5
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFB
+resref_paperdoll=COFF
+resref_armor_base=B
+resref_armor_specific=F~~~~~
+    string = ~~~~~resref=C089
+resref_paperdoll=C099
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+/////////// MALE MAGE
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMW
+resref_paperdoll=CHMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_2
+resref_paperdoll=C0_2
+resref_armor_base=2
+resref_armor_specific=2~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMW
+resref_paperdoll=CEMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_3
+resref_paperdoll=C0_3
+resref_armor_base=3
+resref_armor_specific=3~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMW
+resref_paperdoll=CDMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_4
+resref_paperdoll=C0_4
+resref_armor_base=4
+resref_armor_specific=4~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMW
+resref_paperdoll=CGMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_4
+resref_paperdoll=C0_W
+resref_armor_base=4
+resref_armor_specific=W~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMW
+resref_paperdoll=COMW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_2
+resref_paperdoll=C0_Y
+resref_armor_base=2
+resref_armor_specific=Y~~~~~ //"
+  END
+  
+/////////// FEMALE MAGE
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFW
+resref_paperdoll=CHFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_5
+resref_paperdoll=C0_5
+resref_armor_base=5
+resref_armor_specific=5~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFW
+resref_paperdoll=CEFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_6
+resref_paperdoll=C0_6
+resref_armor_base=6
+resref_armor_specific=6~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFW
+resref_paperdoll=CDFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_7
+resref_paperdoll=C0_7
+resref_armor_base=7
+resref_armor_specific=7~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFW
+resref_paperdoll=CGFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_7
+resref_paperdoll=C0_X
+resref_armor_base=7
+resref_armor_specific=X~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFW
+resref_paperdoll=COFW
+resref_armor_base=W
+resref_armor_specific=W~~~~~
+    string = ~~~~~resref=C0_5
+resref_paperdoll=C0_Z
+resref_armor_base=5
+resref_armor_specific=Z~~~~~ //"
+  END
+  
+/////////// MALE THIEF
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMT
+resref_paperdoll=CHMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_8
+resref_paperdoll=C0_8
+resref_armor_base=8
+resref_armor_specific=8~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEMT
+resref_paperdoll=CEMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_9
+resref_paperdoll=C0_9
+resref_armor_base=9
+resref_armor_specific=9~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMT
+resref_paperdoll=CDMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_A
+resref_paperdoll=C0_A
+resref_armor_base=A
+resref_armor_specific=A~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIMT
+resref_paperdoll=CIMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_B
+resref_paperdoll=C0_B
+resref_armor_base=B
+resref_armor_specific=B~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDMT
+resref_paperdoll=CGMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_A
+resref_paperdoll=C01_
+resref_armor_base=A
+resref_armor_specific=_~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHMT
+resref_paperdoll=COMT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_8
+resref_paperdoll=C03_
+resref_armor_base=8
+resref_armor_specific=_~~~~~ //"
+  END
+  
+/////////// FEMALE THIEF
+
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFT
+resref_paperdoll=CHFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_C
+resref_paperdoll=C0_C
+resref_armor_base=C
+resref_armor_specific=C~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CEFT
+resref_paperdoll=CEFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_D
+resref_paperdoll=C0_D
+resref_armor_base=D 
+resref_armor_specific=D~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CDFT
+resref_paperdoll=CDFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_E
+resref_paperdoll=C0_E 
+resref_armor_base=E
+resref_armor_specific=E~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFT
+resref_paperdoll=CIFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_f
+resref_paperdoll=C0_f
+resref_armor_base=F
+resref_armor_specific=F~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CIFT
+resref_paperdoll=CGFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_F
+resref_paperdoll=C02_
+resref_armor_base=F
+resref_armor_specific=_~~~~~ //"
+  END
+  
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    warn = 0
+    STR_VAR
+    pattern = ~~~~~resref=CHFT
+resref_paperdoll=COFT
+resref_armor_base=T
+resref_armor_specific=T~~~~~
+    string = ~~~~~resref=C0_C
+resref_paperdoll=C04_
+resref_armor_base=C
+resref_armor_specific=_~~~~~ //"
+  END
+  
+    OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
+    APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
+END
+
+COPY ~%MOD_FOLDER%/itm/C0WARDRO.ITM~ ~override~
+SAY NAME2 ~The Amazing Pocket Wardrobe~
+SAY DESC ~This magical mirror allows you to freely change your character's appearance.~
+
+ACTION_IF MOD_IS_INSTALLED ~ArtisansKitpack.tp2~ ~10003~ BEGIN
+
+  OUTER_SPRINT monk_class ~OR(3) Class(Player1,MONK) Kit(Player1,C0_SACRED_FIST) Kit(Player1,C0_ENLIGHTENED_FIST)~
+
+COPY_EXISTING ~C0WARDRO.ITM~ ~override~
+		LPF ADD_ITEM_EQEFFECT
+			INT_VAR
+				opcode = 319
+				target = 1
+				timing = 2
+				parameter1 = IDS_OF_SYMBOL (~KIT~ ~C0_ENLIGHTENED_FIST~)
+				parameter2 = 9
+		END
+		LPF ADD_ITEM_EQEFFECT
+			INT_VAR
+				opcode = 319
+				target = 1
+				timing = 2
+				parameter1 = IDS_OF_SYMBOL (~KIT~ ~C0_SACRED_FIST~)
+				parameter2 = 9
+		END
+
+END ELSE BEGIN
+
+  OUTER_SPRINT monk_class ~Class(Player1,MONK)~
+
+END
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/d/dialog.d~
+
+OUTER_SET pocket_wardrobe = RESOLVE_STR_REF (~Makeover~)
+APPEND ~ITEMDIAL.2da~ ~C0WARDRO    %pocket_wardrobe%    C0WARDRO~
+
+ACTION_FOR_EACH baldurbcs IN baldur bdbaldur baldur25 BEGIN
+
+  ACTION_IF FILE_EXISTS_IN_GAME ~%baldurbcs%.bcs~ BEGIN
+    EXTEND_BOTTOM ~%baldurbcs%.bcs~ ~%MOD_FOLDER%/baf/baldur.baf~
+  END
+
+END
