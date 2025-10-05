@@ -1657,7 +1657,7 @@ END
 ++ ~Normal (same as equipped armor)~ DO ~Polymorph(THIEF_FEMALE_HALFLING)~ EXIT
 ++ ~Unarmored~ DO ~Polymorph(THIEF_FEMALE_HALFLING_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_FEMALE_HALFLING_2)~ EXIT
-++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_FEMALE_HALFLING_3)~ EXI
+++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_FEMALE_HALFLING_3)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
