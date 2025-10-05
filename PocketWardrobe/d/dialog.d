@@ -193,7 +193,6 @@ END
 ++ ~Unarmored~ DO ~Polymorph(THIEF_MALE_HUMAN_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_MALE_HUMAN_2)~ EXIT
 ++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_MALE_HUMAN_3)~ EXIT
-++ ~Plate Mail Armor~ DO ~Polymorph(THIEF_MALE_HUMAN_4)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
@@ -367,7 +366,6 @@ END
 ++ ~Unarmored~ DO ~Polymorph(THIEF_MALE_ELF_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_MALE_ELF_2)~ EXIT
 ++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_MALE_ELF_3)~ EXIT
-++ ~Plate Mail Armor~ DO ~Polymorph(THIEF_MALE_ELF_4)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
@@ -541,7 +539,6 @@ END
 ++ ~Unarmored~ DO ~Polymorph(THIEF_MALE_DWARF_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_MALE_DWARF_2)~ EXIT
 ++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_MALE_DWARF_3)~ EXIT
-++ ~Plate Mail Armor~ DO ~Polymorph(THIEF_MALE_DWARF_4)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
@@ -663,7 +660,6 @@ END
 ++ ~Unarmored~ DO ~Polymorph(THIEF_MALE_HALFLING_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_MALE_HALFLING_2)~ EXIT
 ++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_MALE_HALFLING_3)~ EXIT
-++ ~Plate Mail Armor~ DO ~Polymorph(THIEF_MALE_HALFLING_4)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
@@ -837,7 +833,6 @@ END
 ++ ~Unarmored~ DO ~Polymorph(THIEF_MALE_GNOME_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_MALE_GNOME_2)~ EXIT
 ++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_MALE_GNOME_3)~ EXIT
-++ ~Plate Mail Armor~ DO ~Polymorph(THIEF_MALE_GNOME_4)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
@@ -1011,7 +1006,6 @@ END
 ++ ~Unarmored~ DO ~Polymorph(THIEF_MALE_HALFORC_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_MALE_HALFORC_2)~ EXIT
 ++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_MALE_HALFORC_3)~ EXIT
-++ ~Plate Mail Armor~ DO ~Polymorph(THIEF_MALE_HALFORC_4)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
@@ -1197,7 +1191,6 @@ END
 ++ ~Unarmored~ DO ~Polymorph(THIEF_FEMALE_HUMAN_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_FEMALE_HUMAN_2)~ EXIT
 ++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_FEMALE_HUMAN_3)~ EXIT
-++ ~Plate Mail Armor~ DO ~Polymorph(THIEF_FEMALE_HUMAN_4)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
@@ -1371,7 +1364,6 @@ END
 ++ ~Unarmored~ DO ~Polymorph(THIEF_FEMALE_ELF_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_FEMALE_ELF_2)~ EXIT
 ++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_FEMALE_ELF_3)~ EXIT
-++ ~Plate Mail Armor~ DO ~Polymorph(THIEF_FEMALE_ELF_4)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
@@ -1545,7 +1537,6 @@ END
 ++ ~Unarmored~ DO ~Polymorph(THIEF_FEMALE_DWARF_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_FEMALE_DWARF_2)~ EXIT
 ++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_FEMALE_DWARF_3)~ EXIT
-++ ~Plate Mail Armor~ DO ~Polymorph(THIEF_FEMALE_DWARF_4)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
@@ -1666,8 +1657,7 @@ END
 ++ ~Normal (same as equipped armor)~ DO ~Polymorph(THIEF_FEMALE_HALFLING)~ EXIT
 ++ ~Unarmored~ DO ~Polymorph(THIEF_FEMALE_HALFLING_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_FEMALE_HALFLING_2)~ EXIT
-++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_FEMALE_HALFLING_3)~ EXIT
-++ ~Plate Mail Armor~ DO ~Polymorph(THIEF_FEMALE_HALFLING_4)~ EXIT
+++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_FEMALE_HALFLING_3)~ EXI
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
@@ -1841,7 +1831,6 @@ END
 ++ ~Unarmored~ DO ~Polymorph(THIEF_FEMALE_GNOME_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_FEMALE_GNOME_2)~ EXIT
 ++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_FEMALE_GNOME_3)~ EXIT
-++ ~Plate Mail Armor~ DO ~Polymorph(THIEF_FEMALE_GNOME_4)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
@@ -2015,6 +2004,5 @@ END
 ++ ~Unarmored~ DO ~Polymorph(THIEF_FEMALE_HALFORC_1)~ EXIT
 ++ ~Leather Armor~ DO ~Polymorph(THIEF_FEMALE_HALFORC_2)~ EXIT
 ++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_FEMALE_HALFORC_3)~ EXIT
-++ ~Plate Mail Armor~ DO ~Polymorph(THIEF_FEMALE_HALFORC_4)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
