@@ -1,9 +1,5 @@
 BEGIN C0WARDRO
 
-CHAIN IF WEIGHT #-1 ~%monk_class%~ THEN C0WARDRO monk
-~The ascetic have no use for vanity.~
-EXIT
-
 CHAIN IF ~True()~ THEN C0WARDRO 0
 ~How would you like to change your appearance?~
 END
@@ -2006,3 +2002,7 @@ END
 ++ ~Chain Mail Armor~ DO ~Polymorph(THIEF_FEMALE_HALFORC_3)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
+
+CHAIN IF WEIGHT #-1 ~%monk_class%~ THEN C0WARDRO monk
+~The ascetic have no use for vanity.~
+EXIT
