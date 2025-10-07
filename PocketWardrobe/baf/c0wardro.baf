@@ -1,0 +1,7 @@
+IF
+  OnCreation()
+THEN
+RESPONSE #100
+  ActionOverride(LastSummonerOf(Myself),StartDialogOverride("C0WARDRO",Myself))
+  DestroySelf()
+END

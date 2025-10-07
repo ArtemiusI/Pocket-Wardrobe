@@ -3,6 +3,7 @@ AUTHOR ~The Artisan~
 ALWAYS
   INCLUDE ~%MOD_FOLDER%/lib/functions.tph~
   INCLUDE ~%MOD_FOLDER%/lib/replace_multiline.tpa~
+  INCLUDE ~%MOD_FOLDER%/lib/macros.tpa~
 END
 
 BEGIN ~The Amazing Pocket Wardrobe Mod: Playable Appearance Changer~
@@ -206,7 +207,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_1 BEGIN
     warn = 0
     STR_VAR
     pattern = ~~~~~armor_max_code=4~~~~~
-    string = EVAL ~~~~~~~~~~ //"
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
   END
     OUTER_SET EVAL ~slot_%folder%~ = slot   // save animation slot number for later
     APPEND ~ANIMATE.IDS~ ~0x%hexNumber% %symbol%_NOHELM~
@@ -5001,6 +5002,25 @@ ACTION_FOR_EACH baldurbcs IN baldur bdbaldur baldur25 BEGIN
 
 END
 
+BEGIN ~The Amazing Pocket Wardrobe Mod: Makeover Option in Item Abilities~ DESIGNATED 100000
+GROUP ~Main Component~
+
+COPY ~%MOD_FOLDER%/eff/c0wardro.eff~ ~override~
+
+COPY_EXISTING ~FIST.ITM~ ~OVERRIDE~
+  LPF ADD_ITEM_HEADER INT_VAR type = 3 target = 7 insert_point = 1 STR_VAR icon = IMISCAG END 
+  LPF ADD_ITEM_EFFECT INT_VAR type = 3 opcode = 177 parameter1 = 0 parameter2 = 2 target = 1 timing = 1 header = 2 STR_VAR resource = C0WARDRO END
+
+OUTER_SET amazing_pocket_wardrobe = RESOLVE_STR_REF (~The Amazing Pocket Wardrobe~)
+APPEND tooltip.2da ~FIST -1 %amazing_pocket_wardrobe% -1~ UNLESS ~FIST~
+
+COPY_EXISTING ~BDCUTID.CRE~ ~OVERRIDE/C0WARDRO.CRE~
+LPF DELETE_EFFECT INT_VAR match_opcode = 271 END
+WRITE_ASCII 0x248 ~C0WARDRO~ #8  // override
+WRITE_ASCII 0x280 ~C0WARDRO~ #32 // death variable
+
+COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/baf/C0WARDRO.baf~
+
 ///////////////////////////////////////////////////////////////////////////
 //////////SENTRIZEAL'S ELVEN RANGER (FEMALE)
 ///////////////////////////////////////////////////////////////////////////
@@ -5443,9 +5463,9 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_2 BEGIN
     warn = 0
     STR_VAR
     pattern = ~~~~~resref=CEMB
-resref_paperdoll=C0!2
+resref_paperdoll=CEMF
 resref_armor_base=B
-resref_armor_specific=2~~~~~
+resref_armor_specific=F~~~~~
     string = ~~~~~resref=C0!2
 resref_paperdoll=C0!2
 resref_armor_base=2
@@ -5618,9 +5638,9 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_2 BEGIN
     warn = 0
     STR_VAR
     pattern = ~~~~~resref=CEMB
-resref_paperdoll=C0!2
+resref_paperdoll=CEMF
 resref_armor_base=B
-resref_armor_specific=2~~~~~
+resref_armor_specific=F~~~~~
     string = ~~~~~resref=C0!2
 resref_paperdoll=C0!2
 resref_armor_base=2
@@ -6174,7 +6194,7 @@ CLEAR_ARRAYS
 ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_3 BEGIN
     ~6100~ => ~GLADIATOR_MALE_HUMAN_1~
   END
-  ACTION_PHP_EACH anims_armor_4 AS folder => symbol BEGIN
+  ACTION_PHP_EACH anims_armor_3 AS folder => symbol BEGIN
     LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
     LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
     COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
@@ -6831,14 +6851,6 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_1 BEGIN
     INT_VAR
     strict = 1
     verbose = 0
-    STR_VAR
-    pattern = ~~~~~armor_max_code=4~~~~~
-    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
-  END
-  LPF REPLACE_MULTILINE
-    INT_VAR
-    strict = 1
-    verbose = 0
     warn = 0
     STR_VAR
     pattern = ~~~~~resref=CHMB
@@ -6900,6 +6912,14 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_3 BEGIN
     LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
     LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
     COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
   LPF REPLACE_MULTILINE
     INT_VAR
     strict = 1
@@ -7006,14 +7026,6 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_1 BEGIN
     INT_VAR
     strict = 1
     verbose = 0
-    STR_VAR
-    pattern = ~~~~~armor_max_code=4~~~~~
-    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
-  END
-  LPF REPLACE_MULTILINE
-    INT_VAR
-    strict = 1
-    verbose = 0
     warn = 0
     STR_VAR
     pattern = ~~~~~resref=CHMB
@@ -7075,6 +7087,14 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY anims_armor_3 BEGIN
     LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0x6000 RET slot END
     LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
     COPY_EXISTING ~%folder%.ini~ ~override/%hexNumber%.ini~
+  LPF REPLACE_MULTILINE
+    INT_VAR
+    strict = 1
+    verbose = 0
+    STR_VAR
+    pattern = ~~~~~armor_max_code=4~~~~~
+    string = EVAL ~~~~~armor_max_code=0~~~~~ //"
+  END
   LPF REPLACE_MULTILINE
     INT_VAR
     strict = 1
