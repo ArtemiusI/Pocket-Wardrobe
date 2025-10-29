@@ -1,6 +1,6 @@
 BEGIN C0WARDRO
 
-CHAIN IF ~True()~ THEN C0WARDRO 0
+CHAIN IF ~InParty(Myself)~ THEN C0WARDRO 0
 ~How would you like to change your appearance?~
 END
 ++ ~Male~ + male
