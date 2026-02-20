@@ -1,16 +1,16 @@
 EXTEND_TOP C0WARDRO 3
-++ ~%sent_gladiator_male%~ + sent-gladiator-male
+++ ~%sent_gladiator_male%~ + sent-mercenary-male
 END
 
-CHAIN C0WARDRO sent-gladiator-male
+CHAIN C0WARDRO sent-mercenary-male
 ~Choose an armor appearance.~
 END
-++ ~Normal (same as equipped armor)~ + sent-gladiator-male-helmet
-++ ~Leather Armor~ + sent-gladiator-male-1-helmet
+++ ~Normal (same as equipped armor)~ + sent-mercenary-male-helmet
+++ ~Leather Armor~ + sent-mercenary-male-1-helmet
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
-CHAIN C0WARDRO sent-gladiator-male-helmet
+CHAIN C0WARDRO sent-mercenary-male-helmet
 ~Visible helmet?~
 END
 ++ ~Yes~ DO ~Polymorph(GLADIATOR_MALE_HUMAN)~ EXIT
@@ -18,10 +18,38 @@ END
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
 
-CHAIN C0WARDRO sent-gladiator-male-1-helmet
+CHAIN C0WARDRO sent-mercenary-male-1-helmet
 ~Visible helmet?~
 END
 ++ ~Yes~ DO ~Polymorph(GLADIATOR_MALE_HUMAN_1)~ EXIT
 ++ ~No~ DO ~Polymorph(GLADIATOR_MALE_HUMAN_1_NOHELM)~ EXIT
+++ ~Start over~ + 0
+++ ~EXIT~ EXIT
+
+EXTEND_TOP C0WARDRO 96
+++ ~%sent_gladiator_male%~ + sent-mercenary-male-halforc
+END
+
+CHAIN C0WARDRO sent-mercenary-male-halforc
+~Choose an armor appearance.~
+END
+++ ~Normal (same as equipped armor)~ + sent-mercenary-male-halforc-helmet
+++ ~Leather Armor~ + sent-mercenary-male-halforc-1-helmet
+++ ~Start over~ + 0
+++ ~EXIT~ EXIT
+
+CHAIN C0WARDRO sent-mercenary-male-halforc-helmet
+~Visible helmet?~
+END
+++ ~Yes~ DO ~Polymorph(GLADIATOR_MALE_HALFORC)~ EXIT
+++ ~No~ DO ~Polymorph(GLADIATOR_MALE_HALFORC_NOHELM)~ EXIT
+++ ~Start over~ + 0
+++ ~EXIT~ EXIT
+
+CHAIN C0WARDRO sent-mercenary-male-halforc-1-helmet
+~Visible helmet?~
+END
+++ ~Yes~ DO ~Polymorph(GLADIATOR_MALE_HALFORC_1)~ EXIT
+++ ~No~ DO ~Polymorph(GLADIATOR_MALE_HALFORC_1_NOHELM)~ EXIT
 ++ ~Start over~ + 0
 ++ ~EXIT~ EXIT
